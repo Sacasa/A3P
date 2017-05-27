@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=pD\ pI\ pR
+comment0.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\r\n
+comment1.params=pE
+comment1.target=Room\ getExit(java.lang.String)
+comment1.text=\r\n\ \r\n\ @p\r\n\ \r\n\ \r\n
+numComments=2

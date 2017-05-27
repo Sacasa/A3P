@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="fr">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span> import java.util.HashMap; <a name="line.1"></a>
+<span class="sourceLineNo">002</span>import java.util.Set;<a name="line.2"></a>
+<span class="sourceLineNo">003</span>public class Room<a name="line.3"></a>
+<span class="sourceLineNo">004</span>{<a name="line.4"></a>
+<span class="sourceLineNo">005</span>    //Définition des attibuts<a name="line.5"></a>
+<span class="sourceLineNo">006</span><a name="line.6"></a>
+<span class="sourceLineNo">007</span>    private String aDescription;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>    private HashMap&lt;String, Room&gt; aExits;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>    private String aImageName;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>    private ItemList aItems;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>    //Constructeurs<a name="line.11"></a>
+<span class="sourceLineNo">012</span>    /**<a name="line.12"></a>
+<span class="sourceLineNo">013</span>     * Constructeur de la piece<a name="line.13"></a>
+<span class="sourceLineNo">014</span>     * @param pD Description du lieu<a name="line.14"></a>
+<span class="sourceLineNo">015</span>     * @param pI lien de l'image<a name="line.15"></a>
+<span class="sourceLineNo">016</span>     */<a name="line.16"></a>
+<span class="sourceLineNo">017</span>    public Room(final String pD,final String pI)<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    {<a name="line.18"></a>
+<span class="sourceLineNo">019</span>        this.aDescription = pD;  <a name="line.19"></a>
+<span class="sourceLineNo">020</span>        this.aExits = new HashMap&lt;String, Room&gt;();<a name="line.20"></a>
+<span class="sourceLineNo">021</span>        this.aItems = new ItemList();<a name="line.21"></a>
+<span class="sourceLineNo">022</span>        this.aImageName = pI;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>    }//room    <a name="line.23"></a>
+<span class="sourceLineNo">024</span>    <a name="line.24"></a>
+<span class="sourceLineNo">025</span>    //Accesseurs<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    /**<a name="line.26"></a>
+<span class="sourceLineNo">027</span>     * Retourne la description du lieu<a name="line.27"></a>
+<span class="sourceLineNo">028</span>     * @return Description<a name="line.28"></a>
+<span class="sourceLineNo">029</span>     */<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    public String getDescription(){ return this.aDescription; }//GetDescription<a name="line.30"></a>
+<span class="sourceLineNo">031</span><a name="line.31"></a>
+<span class="sourceLineNo">032</span>    /**<a name="line.32"></a>
+<span class="sourceLineNo">033</span>     * Retourne la desctiption longue du lieu actuel, contenant la description du lieu et les sorties <a name="line.33"></a>
+<span class="sourceLineNo">034</span>     * @return Description longue<a name="line.34"></a>
+<span class="sourceLineNo">035</span>     */<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    public String getLongDescription()<a name="line.36"></a>
+<span class="sourceLineNo">037</span>    {<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        if( this.aItems.isEmpty())<a name="line.38"></a>
+<span class="sourceLineNo">039</span>            return "Vous êtes " + this.aDescription + ".\n" + this.getExitString();<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        else <a name="line.40"></a>
+<span class="sourceLineNo">041</span>            return "Vous etes " + this.aDescription + ".\n" + this.getItemString() + ".\n" + this.getExitString(); <a name="line.41"></a>
+<span class="sourceLineNo">042</span>    }<a name="line.42"></a>
+<span class="sourceLineNo">043</span>    <a name="line.43"></a>
+<span class="sourceLineNo">044</span>    /**<a name="line.44"></a>
+<span class="sourceLineNo">045</span>     * Return a string describing the room's image name<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     * @return No mdel'image<a name="line.46"></a>
+<span class="sourceLineNo">047</span>     */<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    public String getImageName(){return aImageName;}<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        <a name="line.49"></a>
+<span class="sourceLineNo">050</span>    /**<a name="line.50"></a>
+<span class="sourceLineNo">051</span>     * retourne la sortie correspondante<a name="line.51"></a>
+<span class="sourceLineNo">052</span>     * @param pD Donne la piece dans la direction de ce parametre<a name="line.52"></a>
+<span class="sourceLineNo">053</span>     * @return sortie dans la direction<a name="line.53"></a>
+<span class="sourceLineNo">054</span>     */<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    public Room getExit(final String pD  )<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    {<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>        return this.aExits.get(pD);<a name="line.58"></a>
+<span class="sourceLineNo">059</span><a name="line.59"></a>
+<span class="sourceLineNo">060</span>    }//GetExit<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>    /**<a name="line.62"></a>
+<span class="sourceLineNo">063</span>     * retourne les différentes sorties de la piece actuelle<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * @return Les sorties<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     */<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    public String getExitString()<a name="line.66"></a>
+<span class="sourceLineNo">067</span>    {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        String vReturnString = "Les sorties sont:";<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        Set&lt;String&gt; vKeys = this.aExits.keySet();<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        for(String vExit : vKeys)<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        {<a name="line.71"></a>
+<span class="sourceLineNo">072</span>            vReturnString += ", " + vExit;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        }<a name="line.73"></a>
+<span class="sourceLineNo">074</span><a name="line.74"></a>
+<span class="sourceLineNo">075</span>        return vReturnString;<a name="line.75"></a>
+<span class="sourceLineNo">076</span><a name="line.76"></a>
+<span class="sourceLineNo">077</span>    }//getexitstring<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    <a name="line.78"></a>
+<span class="sourceLineNo">079</span>    /**<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     * Récupere tous les objets dans la pièce<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * @return Chaine de caractères avec tous les objets dedans<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     */<a name="line.82"></a>
+<span class="sourceLineNo">083</span>    public String getItemString()<a name="line.83"></a>
+<span class="sourceLineNo">084</span>    {<a name="line.84"></a>
+<span class="sourceLineNo">085</span>       return "Les objets sont :" + this.aItems.toStringDetail();<a name="line.85"></a>
+<span class="sourceLineNo">086</span><a name="line.86"></a>
+<span class="sourceLineNo">087</span>    }<a name="line.87"></a>
+<span class="sourceLineNo">088</span>    //Mutateurs<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    /**<a name="line.89"></a>
+<span class="sourceLineNo">090</span>     * Définit la sortie de la piece atuelle<a name="line.90"></a>
+<span class="sourceLineNo">091</span>     * @param pD direction relative<a name="line.91"></a>
+<span class="sourceLineNo">092</span>     * @param pV piece voisine dans cette direction<a name="line.92"></a>
+<span class="sourceLineNo">093</span>     */<a name="line.93"></a>
+<span class="sourceLineNo">094</span>    public void setExit(final String pD, final Room pV)<a name="line.94"></a>
+<span class="sourceLineNo">095</span>    {<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        this.aExits.put(pD, pV);<a name="line.96"></a>
+<span class="sourceLineNo">097</span><a name="line.97"></a>
+<span class="sourceLineNo">098</span>    }//setExit<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    //Methodes<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    /**<a name="line.100"></a>
+<span class="sourceLineNo">101</span>     * retourne l'objet associé à un nom<a name="line.101"></a>
+<span class="sourceLineNo">102</span>     * @param pName nom de l'objet<a name="line.102"></a>
+<span class="sourceLineNo">103</span>     * @return objet en question ( peut etre nul)<a name="line.103"></a>
+<span class="sourceLineNo">104</span>     */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    public Item getItem(final String pName)<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    {<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        Item vItem = this.aItems.getItem(pName);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        return vItem;        <a name="line.108"></a>
+<span class="sourceLineNo">109</span>    }<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    <a name="line.110"></a>
+<span class="sourceLineNo">111</span>    /**<a name="line.111"></a>
+<span class="sourceLineNo">112</span>     * Ajoute un objet dans la pièce<a name="line.112"></a>
+<span class="sourceLineNo">113</span>     * @param pI objet en question<a name="line.113"></a>
+<span class="sourceLineNo">114</span>     */<a name="line.114"></a>
+<span class="sourceLineNo">115</span>    public void addItem(final Item pI)<a name="line.115"></a>
+<span class="sourceLineNo">116</span>    {<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        this.aItems.addItem(pI);<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    }<a name="line.118"></a>
+<span class="sourceLineNo">119</span>    <a name="line.119"></a>
+<span class="sourceLineNo">120</span>    /**<a name="line.120"></a>
+<span class="sourceLineNo">121</span>     * Enleve un objet dans la pièce<a name="line.121"></a>
+<span class="sourceLineNo">122</span>     * @param pI objet en question<a name="line.122"></a>
+<span class="sourceLineNo">123</span>     */<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    public void removeItem(final String pN)<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    {<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        this.aItems.removeItem(pN);<a name="line.126"></a>
+<span class="sourceLineNo">127</span>    }<a name="line.127"></a>
+<span class="sourceLineNo">128</span>} // Room<a name="line.128"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

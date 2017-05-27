@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.params=pN\ pD\ pW\ pE
+comment0.target=Item(java.lang.String,\ java.lang.String,\ int,\ boolean)
+comment0.text=\r\n\ Initialise\ les\ attributs\ d'un\ item\r\n\ @param\ pD\ Description\r\n\ @param\ pW\ Poids\ de\ l'objet\r\n\ @param\ pE\ objet\ comestible\ ou\ non\r\n
+comment1.params=
+comment1.target=java.lang.String\ getItemInformation()
+comment1.text=\r\n\ Retourne\ la\ description\ de\ l'objet\r\n\ @return\ description\ +\ poids\r\n
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment2.text=\r\n\ Retourne\ le\ nom\ de\ l'objet\r\n\ @return\ nom\ de\ l'objet\r\n
+comment3.params=
+comment3.target=int\ getWeight()
+comment3.text=\r\n\ REtourne\ le\ poids\ de\ l'objet\r\n\ @return\ poids\ de\ l'objet\r\n
+comment4.params=
+comment4.target=boolean\ isEdible()
+comment4.text=\r\n\ retourne\ i\ l'objet\ est\ commestible\r\n\ @return\ objet\ coemstible\ ou\ non\r\n
+comment5.params=pP
+comment5.target=void\ setCarrier(Player)
+comment6.params=
+comment6.target=Player\ getCarrier()
+numComments=7
