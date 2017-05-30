@@ -11,6 +11,9 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2.0 (Jan 2003)
  */
+import pkg_core.GameEngine;
+import pkg_core.UserInterface;
+
 
 public class Game
 {
