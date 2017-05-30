@@ -33,6 +33,21 @@ public class Player
         this.aInventory = new ItemList();
     }//player
     
+    public void addMaxWeight(final int pI)
+    {
+        this.aMaxWeight += pI;
+        
+    }
+    
+    public int getMaxWeight()
+    {
+        return this.aMaxWeight;
+    }
+    
+    public ItemList getInventory()
+    {
+        return this.aInventory;
+    }
     //Utile si player affiche des choses dans le GUI
     /**
      * définit le GUI ou on affichera les infos
@@ -41,86 +56,18 @@ public class Player
     {
        this.aGui = pUserInterface; 
     }//setGui
-     
-    /**
-     * Permet de manger pour rassasier le personnage
-     * @param pName nom de l'objet à manger
-     */
-    public void eat(final String pName)
-    {
-       if(this.aInventory.getItem(pName) == null || !this.aInventory.getItem(pName).isEdible())
-           this.aGui.println("Vous n'avez pas d'ojet commestible de ce nom sur vous");
-       else
-        {
-            if(pName.equals("lemba"))
-                {
-                    this.aMaxWeight += 5;
-                    this.aGui.println("Après avoir mangé le Lemba, votre poids total est devenu " + this.aMaxWeight);           
-                    this.aCurrentWeight -= this.aInventory.getItem(pName).getWeight();
-                    this.aInventory.removeItem(pName);
-                }
-            
-        }
-    }//eat
-   
-    /**
-     * Prend un objet dans la salle
-     * @param pName nom de l'objet
-     */  
-    public void take(final String pName)
-    {
-
-        if(this.aCurrentRoom.getItem(pName) != null)
-        {
-            if(this.aCurrentWeight +this.aCurrentRoom.getItem(pName).getWeight() > this.aMaxWeight)
-                this.aGui.println("Cet objet est trop lourd pour vous !");
-            else
-            {
-                this.aInventory.addItem(this.aCurrentRoom.getItem(pName));
-                this.aCurrentRoom.getItem(pName).setCarrier(this);
-                this.aCurrentRoom.removeItem(pName);
-                this.aGui.println("Vous récupérez " + this.aInventory.getItem(pName).getItemInformation());
-                this.aCurrentWeight += this.aInventory.getItem(pName).getWeight();
-            }
-        }
-        else
-            aGui.println("Cet objet n'est pas présent dans la salle");
-            
-    }//Take
     
-    /**
-     * Dépose un objet dans la salle
-     * @param pName nom de l'objet à déposer
-     */
-    public void drop(final String pName)
+    public void addCurrentWeight(final int pI)
     {
-        if(this.aInventory.getItem(pName) != null)
-        {
-            this.aGui.println("Vous déposez " + this.aInventory.getItem(pName).getItemInformation());
-            this.aInventory.getItem(pName).setCarrier(null);
-            this.aCurrentRoom.addItem(this.aInventory.getItem(pName));
-            this.aCurrentWeight -= this.aInventory.getItem(pName).getWeight();
-            this.aInventory.removeItem(pName);
-        }
-        else
-            aGui.println("Cet objet n'est pas présent dans votre inventaire");  
-    
-    }//drop
-    
-    /**
-     * affiche l'état de l'inventaire
-     */
-    public void inventory()
-    {
-        if (this.aInventory.isEmpty())
-            this.aGui.println("Votre inventaire est vide");
-        else
-        {
-            String vString = "Dans voter inventaire se trouvent : "+ this.aInventory.toString() + " pour un poids total de " + this.aCurrentWeight;
-            this.aGui.println(vString);
-        }
+       this.aCurrentWeight += pI; 
     }
     
+    public int getCurrentWeight()
+    {
+        return this.aCurrentWeight;
+        
+    }
+     
     /**
      * Retourne la piece actuelle
      * @return piece actuelle
@@ -138,7 +85,6 @@ public class Player
     public void changeRoom(final Room pRoom)
     {
        this.aCurrentRoom = pRoom; 
-       System.out.println(pRoom.toString());
        this.aGui.println(this.aCurrentRoom.getLongDescription());
        if(this.aCurrentRoom.getImageName() != null)
             this.aGui.showImage(this.aCurrentRoom.getImageName());      

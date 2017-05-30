@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 public class TransporterRoom extends Room
 {
-    final RoomRandomizer aRandomizer;    
-    
-    
+    private RoomRandomizer aRandomizer;  
+    private Integer aAleaNb;
+
     /**
      * Constructor for objects of class TransporterRoom
      */
@@ -17,9 +17,14 @@ public class TransporterRoom extends Room
     {
         super(pD,pI);
         aRandomizer = new RoomRandomizer(pR);
-        
+
     }
-    
+
+    public void setAlea(final Integer pI)
+    {
+        this.aAleaNb = pI;
+    }
+
     /**
      * 
      * @p
@@ -29,8 +34,14 @@ public class TransporterRoom extends Room
     @Override
     public Room getExit(String pE)
     {
+        System.out.println("Aleatoire :" + aAleaNb);
+        if((Integer)this.aAleaNb != null && aAleaNb < this.aRandomizer.getRandomRoomList().size()-1)
+            return this.aRandomizer.getRoom(this.aAleaNb);
+
+        //En cas d'erreur ou de comportement aléatoire :
         return aRandomizer.getRandomRoom();
-        
+
     }
-    
+
+
 }

@@ -26,7 +26,7 @@ public class Room
      * Retourne la description du lieu
      * @return Description
      */
-    public String getDescription(){ return this.aDescription; }//GetDescription
+    public String getDescription(){ return this.aDescription ; }//GetDescription
     
     /**
      * Retourne la desctiption longue du lieu actuel, contenant la description du lieu et les sorties 

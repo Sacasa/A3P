@@ -52,7 +52,11 @@ public class Parser
             }
         }
 
-        return new Command(aCommandWords.getCommandWord(word1), word2);
+        Command vCommand = this.aCommandWords.getCommand(word1);
+        if(vCommand != null) {
+            vCommand.setSecondWord(word2);
+        }
+        return vCommand;
     } // getCommand(.)
 
     /**

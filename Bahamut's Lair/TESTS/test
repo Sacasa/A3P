@@ -2,6 +2,7 @@ go ouest
 take lemba
 eat lemba
 go bas
+go haut
 go ouest
 eat
 look
@@ -15,3 +16,11 @@ go sud
 attack
 go bas
 go nord
+go sud
+alea 2
+go est
+go nord
+go sud
+go bas
+go nord
+

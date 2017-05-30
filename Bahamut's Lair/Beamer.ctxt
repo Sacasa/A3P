@@ -1,13 +1,15 @@
 #BlueJ class context
-comment0.params=
-comment0.target=Beamer()
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Beamer\r\n
+comment0.target=Beamer
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Beamer\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=void\ charge()
+comment1.target=Beamer()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Beamer\r\n
 comment2.params=
-comment2.target=void\ fire()
+comment2.target=void\ charge()
 comment3.params=
-comment3.target=Room\ getCurrentRoom()
+comment3.target=void\ fire()
 comment4.params=
-comment4.target=Room\ getChargedRoom()
-numComments=5
+comment4.target=Room\ getCurrentRoom()
+comment5.params=
+comment5.target=Room\ getChargedRoom()
+numComments=6

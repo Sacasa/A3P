@@ -14,18 +14,35 @@ public class CommandWords
 {
     // tableau constant qui contient tous les mots de commande valides
     private HashMap<String, CommandWord> aValidCommands;
+    private HashMap<CommandWord, Command> aCommandes;
 
     /**
      * Constructeur par defaut
      */
     public CommandWords()
     {
-        aValidCommands = new HashMap<String, CommandWord>();
+        this.aValidCommands = new HashMap<String, CommandWord>();
+        this.aCommandes = new HashMap<CommandWord, Command>();
         for(CommandWord command : CommandWord.values()) {
             if(command != CommandWord.UNKNOWN) {
                 aValidCommands.put(command.toString(), command);
             }
         }
+        
+        
+        this.aCommandes.put(CommandWord.HELP, new HelpCommand(this));
+        this.aCommandes.put(CommandWord.LOOK, new LookCommand(this));
+        this.aCommandes.put(CommandWord.GO, new GoCommand(this));
+        this.aCommandes.put(CommandWord.BACK, new BackCommand(this));
+        this.aCommandes.put(CommandWord.EAT, new EatCommand(this));
+        this.aCommandes.put(CommandWord.TEST, new TestCommand(this));
+        this.aCommandes.put(CommandWord.TAKE, new TakeCommand(this));
+        this.aCommandes.put(CommandWord.DROP, new DropCommand(this));
+        this.aCommandes.put(CommandWord.INVENTAIRE, new InventaireCommand(this));
+        this.aCommandes.put(CommandWord.ATTACK, new AttackCommand(this));
+        this.aCommandes.put(CommandWord.CHARGE, new ChargeCommand(this));
+        this.aCommandes.put(CommandWord.FIRE, new FireCommand(this));
+        this.aCommandes.put(CommandWord.ALEA, new AleaCommand(this));
     } // CommandWords()
     
     /**
@@ -66,4 +83,14 @@ public class CommandWords
         return vString;
         
     }//getCommandList
+    
+        public Command getCommand(final String pString)
+    {
+        for(CommandWord vC : CommandWord.values())
+        {
+            if(vC.toString().equals(pString))
+                return this.aCommandes.get(vC);
+        }
+        return null;
+    }//getCommand()
 } // CommandWords

@@ -18,13 +18,14 @@ import java.io.FileNotFoundException;
 
 public class GameEngine
 {
-    private Parser aParser;	
+    private Parser aParser; 
     private UserInterface aGui;
     private ArrayList<Room> aRoomList;
     private Stack<Room> aRoomStack;
     private Player aPlayer;
     private int aNbMoves;
     private static final int MAX_MOVES = 20;
+    private boolean aTestMode ;
 
     /**
      * Constructor for objects of class GameEngine
@@ -36,6 +37,7 @@ public class GameEngine
         this.aRoomStack = new Stack<Room>();
         createRooms();
         this.aPlayer = new Player("Quentin",50,this.aRoomList.get(0));
+        this.aTestMode = true;
     }//GameEngine
 
     /**
@@ -48,6 +50,17 @@ public class GameEngine
         this.aPlayer.setGui(aGui);
         printWelcome();
     }//setGui
+
+    public UserInterface getGUI()
+    {
+        return this.aGui;
+    }
+
+    public Player getPlayer()
+    {
+        return this.aPlayer;
+
+    }
 
     /** 
      * Afiche le lieu actuel ainsi que les différentes sorties
@@ -122,12 +135,12 @@ public class GameEngine
         aRoomList.add(vEscalierH);
         aRoomList.add(vEscalierB);
         aRoomList.add(vBahamut);
-        
-        
+
         Room vTransporter = new TransporterRoom("dans une salle où se trouve seulement un téléporteur, même pas de porte !","./Images/Transporter.jpg",this.aRoomList);
         aRoomList.add(vTransporter);
         vEscalierB.setExit("est",vTransporter);
-        
+        System.out.println(aRoomList.get(7).toString());
+
     }//createrooms
     /**
      * Permet de reafficher la description du lieu actuel
@@ -136,6 +149,21 @@ public class GameEngine
     {
         this.printLocation();        
     }//look
+
+    public void setTestMode(final boolean pB)
+    {
+        this.aTestMode = pB;
+    }
+    
+    public boolean getTestMode()
+    {
+        return this.aTestMode;
+    }
+    
+    public Parser getParser()
+    {
+        return this.aParser;        
+    }
 
     /**
      * Permet d'attaquer l'ennemi dans la salle
@@ -162,6 +190,16 @@ public class GameEngine
         this.mort();
     }//harakiri
 
+    public Stack<Room> getRoomStack()
+    {
+        return this.aRoomStack;
+    }
+
+    public ArrayList<Room> getRoomList()
+    {
+        return this.aRoomList;
+    }
+
     /**
      * Given a command, process (that is: execute) the command.
      * If this command ends the game, true is returned, otherwise false is
@@ -170,91 +208,122 @@ public class GameEngine
      */
     public void interpretCommand(final Command pCommand) 
     {
-        CommandWord vCommandWord = pCommand.getCommandWord();
+        /*CommandWord vCommandWord = pCommand.getCommandWord();*/
+        if(pCommand == null)
+        {
+            this.aGui.println("Je ne comprends pas :/");
+        }else{
+            pCommand.execute(this);        
+        }
+
+        /*
         switch(vCommandWord)
         {
-            case UNKNOWN:
-            this.aGui.println("Je ne comprends pas !");
-            break;
-            case HELP:
-            this.printHelp();
-            break;
-            case GO:
-            this.goRoom(pCommand);
-            break;
-            case LOOK:
-            this.look();
-            break;
-            case EAT:
-            if(!pCommand.hasSecondWord())
-                this.aGui.println("Que vouelz vous manger ?");
-            else
-                this.aPlayer.eat(pCommand.getSecondWord());
-            break;
-            case HARAKIRI:
-            this.harakiri();
-            break;
-            case ATTACK:
-            this.attack();
-            break;
-            case BACK:
-            if(pCommand.hasSecondWord())
-                aGui.println("Reculer de quoi ?");
-            else if( this.aPlayer.getCurrentRoom() == this.aRoomStack.peek())
-                aGui.println("Vous n'avez aucun lieu où aller en arrière ! ");
-            else
-                this.back();
-            break;         
-            case TEST:
-            if(!pCommand.hasSecondWord())
-                aGui.println("Tester quoi ?");
-            else 
-                this.test(pCommand.getSecondWord());
-            break;
-            case TAKE:
-            if(!pCommand.hasSecondWord())
-                aGui.println("Prendre quoi ?");
-            else 
-                this.aPlayer.take(pCommand.getSecondWord());
-            break;
-            case DROP:
-            if(!pCommand.hasSecondWord())
-                aGui.println("Jeter quoi ?");
-            else 
-                this.aPlayer.drop(pCommand.getSecondWord());
-            break;
-            case INVENTAIRE:
-            if(pCommand.hasSecondWord())
-                aGui.println("Inventaire de quoi ?");
-            else
-                this.aPlayer.inventory();
-            break;
-            case QUIT: 
-            if(pCommand.hasSecondWord())
-                aGui.println("Quitter quoi");
-            else
-                endGame();
-            break;   
-            case CHARGE:
-            if(pCommand.hasSecondWord())
-                aGui.println("Charger quoi?");
-            else
-                this.aPlayer.charge();
-            break;
-            case FIRE:
-            if(pCommand.hasSecondWord())
-                aGui.println("fire quoi ?");
-            else
-            {   
-                this.aPlayer.fire();
-                this.clearStack();
-            }
-            break;        
-            default :
-            this.aGui.println("ERROR");
-            break;
-
+        case UNKNOWN:
+        this.aGui.println("Je ne comprends pas !");
+        break;
+        case HELP:
+        this.printHelp();
+        break;
+        case GO:
+        this.goRoom(pCommand);
+        break;
+        case LOOK:
+        this.look();
+        break;
+        case EAT:
+        if(!pCommand.hasSecondWord())
+        this.aGui.println("Que vouelz vous manger ?");
+        else
+        this.aPlayer.eat(pCommand.getSecondWord());
+        break;
+        case HARAKIRI:
+        this.harakiri();
+        break;
+        case ATTACK:
+        this.attack();
+        break;
+        case BACK:
+        if(pCommand.hasSecondWord())
+        aGui.println("Reculer de quoi ?");
+        else if( this.aPlayer.getCurrentRoom() == this.aRoomStack.peek())
+        aGui.println("Vous n'avez aucun lieu où aller en arrière ! ");
+        else
+        this.back();
+        break;         
+        case TEST:
+        if(!pCommand.hasSecondWord())
+        aGui.println("Tester quoi ?");
+        else 
+        this.test(pCommand.getSecondWord());
+        break;
+        case TAKE:
+        if(!pCommand.hasSecondWord())
+        aGui.println("Prendre quoi ?");
+        else 
+        this.aPlayer.take(pCommand.getSecondWord());
+        break;
+        case DROP:
+        if(!pCommand.hasSecondWord())
+        aGui.println("Jeter quoi ?");
+        else 
+        this.aPlayer.drop(pCommand.getSecondWord());
+        break;
+        case INVENTAIRE:
+        if(pCommand.hasSecondWord())
+        aGui.println("Inventaire de quoi ?");
+        else
+        this.aPlayer.inventory();
+        break;
+        case QUIT: 
+        if(pCommand.hasSecondWord())
+        aGui.println("Quitter quoi");
+        else
+        endGame();
+        break;   
+        case CHARGE:
+        if(pCommand.hasSecondWord())
+        aGui.println("Charger quoi?");
+        else
+        this.aPlayer.charge();
+        break;
+        case FIRE:
+        if(pCommand.hasSecondWord())
+        aGui.println("fire quoi ?");
+        else
+        {   
+        this.aPlayer.fire();
+        this.clearStack();
         }
+        case ALEA:
+        if(this.aTestMode){
+        TransporterRoom vTemp = (TransporterRoom)this.aRoomList.get(7);
+        if(pCommand.hasSecondWord())
+        {
+        try{
+        Integer vN = Integer.parseInt(pCommand.getSecondWord());
+        vTemp.setAlea(vN);
+        this.aGui.println("L'aléatorie est réglé sur la pièce" + Integer.parseInt(pCommand.getSecondWord()));
+        }
+        catch(Exception pE)
+        {
+        this.aGui.println("Vous n'avez pas indiquez un nombre valide !");
+        }
+        }
+        else
+        {
+        vTemp.setAlea(null); 
+        this.aGui.println("La sélection de room est devenu aléatoire");
+        }
+        }
+        else
+        this.aGui.println("Il faut être en mode test pour utiliser cette commande");
+        break;        
+        default :
+        this.aGui.println("ERROR");
+        break;
+
+        }*/
     }//interpretCommand
 
     // implementations of user commands:
@@ -271,7 +340,7 @@ public class GameEngine
         aGui.println(aParser.showCommands());
     }//printHelp
 
-    private void clearStack()
+    public void clearStack()
     {
         while(!this.aRoomStack.isEmpty())     
         {
@@ -280,50 +349,17 @@ public class GameEngine
 
     }
 
-    /** 
-     * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message.
-     * @param pCommand Commande de changementde piece 
-     */
-    private void goRoom(final Command pCommand) 
+
+    public void oneMove(final Room pR)
     {
-        if(!pCommand.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            this.aGui.println("Aller où ?");
-            return;
-        }
-
-        String vDirection = pCommand.getSecondWord();
-        // Try to leave current room.
-        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit(vDirection);
-
-        if (vNextRoom == null)
+        if(this.aNbMoves + 1 >= this.MAX_MOVES)
         {
-            if(this.aPlayer.getCurrentRoom() == this.aRoomList.get(0) )
-            {
-                this.aGui.println("Vous êtes tombé et êtes décédé :");
-                this.mort();
-            }
-            else
-                this.aGui.println("Vous vous prenez un mur");
+            this.mort();
+            return;           
         }
-        else {
-            if(this.aNbMoves + 1 >= this.MAX_MOVES)
-            {
-                this.mort();
-                return;           
-            }
-            else if(!(this.aPlayer.getCurrentRoom().isExit(vNextRoom) && vNextRoom.isExit(this.aPlayer.getCurrentRoom())))
-            {
-                this.clearStack();
-
-            }
-
-            this.aRoomStack.push(this.aPlayer.getCurrentRoom());
-            this.aPlayer.changeRoom(vNextRoom);           
-            this.aNbMoves ++ ;
-        }
-    }//goRoom
+        this.aRoomStack.push(pR);
+        this.aNbMoves ++ ; 
+    }
 
     /**
      * Nous fait revenir à la salle précédente
@@ -354,25 +390,5 @@ public class GameEngine
     {
         aGui.println("Merci d'avoir joué !");
         aGui.enable(false);
-    }//endgame
-
-    /**
-     * Permet d'éxécuter un fichier de test
-     * @param pNomFichier nom du fichier contenant le test
-     */
-    private void test(final String pNomFichier)
-    {
-        Scanner vSc;
-        try { // pour "essayer" les instructions suivantes
-            vSc = new Scanner( new File( pNomFichier ) );
-            while ( vSc.hasNextLine() ) {
-                String vLigne = vSc.nextLine();
-                this.interpretCommand(this.aParser.getCommand(vLigne));
-            } // while
-        } // try
-        catch ( final FileNotFoundException pFNFE ) {
-            aGui.println("Aucun fichier correspondant n'a été trouvé");
-        } // catch 
-
-    }
+    }//endgame  
 }

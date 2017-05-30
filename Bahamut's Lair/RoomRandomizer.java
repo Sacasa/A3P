@@ -23,5 +23,14 @@ public class RoomRandomizer
         return aRoomList.get(vIndex);
     }
     
+    public ArrayList<Room> getRandomRoomList()
+    {
+        return this.aRoomList;
+    }
     
+    public Room getRoom(final int pI)
+    {
+        return this.aRoomList.get(pI);       
+        
+    }  
 }

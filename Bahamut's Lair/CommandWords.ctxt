@@ -13,4 +13,6 @@ comment3.text=\r\n\ Check\ whether\ a\ given\ String\ is\ a\ valid\ command\ wor
 comment4.params=
 comment4.target=java.lang.String\ getCommandList()
 comment4.text=\r\n\ Permet\ d'afficher\ toutes\ les\ commandes\r\n\ @return\ liste\ des\ commandes\r\n
-numComments=5
+comment5.params=pString
+comment5.target=Command\ getCommand(java.lang.String)
+numComments=6

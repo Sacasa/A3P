@@ -1,6 +1,12 @@
 #BlueJ class context
-comment0.params=pA
-comment0.target=RoomRandomizer(java.util.ArrayList)
-comment1.params=
-comment1.target=Room\ getRandomRoom()
-numComments=2
+comment0.target=RoomRandomizer
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ RoomRandomizer\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pA
+comment1.target=RoomRandomizer(java.util.ArrayList)
+comment2.params=
+comment2.target=Room\ getRandomRoom()
+comment3.params=
+comment3.target=java.util.ArrayList\ getRandomRoomList()
+comment4.params=pI
+comment4.target=Room\ getRoom(int)
+numComments=5

@@ -1,54 +1,51 @@
- 
 
-public class Command
+public abstract class Command
 {
-    private CommandWord commandWord;
-    private String secondWord;
+    private String aSecondWord;
 
     /**
-     * Create a command object. First and second words must be supplied, but
-     * the second may be null.
-     * @param commandWord The CommandWord. UNKNOWN if the command word
-     *                  was not recognised.
-     * @param secondWord The second word of the command. May be null.
+     * Create a command object. First and second word must be supplied, but
+     * either one (or both) can be null. The command word should be null to
+     * indicate that this was a command that is not recognised by this game.
      */
-    public Command(CommandWord commandWord, String secondWord)
+    public Command(final String pSW)
     {
-        this.commandWord = commandWord;
-        this.secondWord = secondWord;
+        this.aSecondWord = pSW;
     }
 
     /**
-     * Return the command word (the first word) of this command.
-     * @return The command word.
-     */
-    public CommandWord getCommandWord()
-    {
-        return commandWord;
-    }
-
-    /**
-     * @return The second word of this command. Returns null if there was no
-     * second word.
+     * Return the second word of this command. If no
+     * second word was entered, the result is null.
      */
     public String getSecondWord()
     {
-        return secondWord;
+        return this.aSecondWord;
     }
 
     /**
-     * @return true if this command was not understood.
-     */
-    public boolean isUnknown()
-    {
-        return (commandWord == CommandWord.UNKNOWN);
-    }
-
-    /**
-     * @return true if the command has a second word.
+     * Check whether a second word was entered for this 
+     * command.
      */
     public boolean hasSecondWord()
     {
-        return (secondWord != null);
+        return this.aSecondWord != null;
     }
+
+    /**
+     * Define the second word of this command (the word
+     * entered after the command word). Null indicates that 
+     * there was no second word.
+     */
+    public void setSecondWord(String secondWord)
+    {
+        this.aSecondWord = secondWord;
+    }
+
+    /**
+     * Execute this command. A flag is returned indicating whether
+     * the game is over as a result of this command.
+     * 
+     * @return True, if game should exit; false otherwise.
+     */
+    public abstract void execute(final GameEngine pG);
 } // Command

@@ -141,7 +141,7 @@ public class UserInterface implements ActionListener
         
         //Creation bouttons d'action
         
-        this.aButtonHarakiri = new JButton("harakiri");
+        this.aButtonHarakiri = new JButton("back");
         this.aButtonEat = new JButton("eat");
         this.aButtonLook = new JButton("look");
         this.aButtonAttack = new JButton("attack");

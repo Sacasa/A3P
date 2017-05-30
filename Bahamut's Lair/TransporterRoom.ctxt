@@ -1,8 +1,12 @@
 #BlueJ class context
-comment0.params=pD\ pI\ pR
-comment0.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\r\n
-comment1.params=pE
-comment1.target=Room\ getExit(java.lang.String)
-comment1.text=\r\n\ \r\n\ @p\r\n\ \r\n\ \r\n
-numComments=2
+comment0.target=TransporterRoom
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ TransporterRoom\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pD\ pI\ pR
+comment1.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\r\n
+comment2.params=pI
+comment2.target=void\ setAlea(java.lang.Integer)
+comment3.params=pE
+comment3.target=Room\ getExit(java.lang.String)
+comment3.text=\r\n\ \r\n\ @p\r\n\ \r\n\ \r\n
+numComments=4
