@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Décrivez votre classe Player ici.
+ * CLasse définissant le(s) joueur(s) du jeu
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Quentin Garrido
+ * @version 1.0
  */
 public class Player
 {
@@ -26,6 +26,7 @@ public class Player
      * Constructeur de Player
      * @param pN nom du player
      * @param pTW poids total du joueur
+     * @param pR pièce initiale du joueur
      */
     public Player(final String pN, final int pTW,final Room pR)
     {
@@ -36,17 +37,27 @@ public class Player
         this.aInventory = new ItemList();
     }//player
     
+    /**
+     * ajoute du poids au maximum du joueur
+     * @param pI poids à ajouter(ou enlever)
+     */
     public void addMaxWeight(final int pI)
     {
         this.aMaxWeight += pI;
         
     }
-    
+    /**
+     * récupère le poids maximumu du joueur
+     * @return poids max
+     */
     public int getMaxWeight()
     {
         return this.aMaxWeight;
     }
-    
+    /**
+     * retourne l'inventaire du joueur
+     * @return inventaire du joueur
+     */
     public ItemList getInventory()
     {
         return this.aInventory;
@@ -54,17 +65,24 @@ public class Player
     //Utile si player affiche des choses dans le GUI
     /**
      * définit le GUI ou on affichera les infos
+     * @param pUserInterface futur gui
      */
     public void setGui(final UserInterface pUserInterface)
     {
        this.aGui = pUserInterface; 
     }//setGui
-    
+    /**
+     * Ajoute/enleve du poids actuel au joueur
+     * @param pI poids à ajouter/enlever
+     */
     public void addCurrentWeight(final int pI)
     {
        this.aCurrentWeight += pI; 
     }
-    
+    /**
+     * Récupère le poids actuel du joueur
+     * @return poids du joueur
+     */
     public int getCurrentWeight()
     {
         return this.aCurrentWeight;
@@ -90,42 +108,14 @@ public class Player
        this.aCurrentRoom = pRoom; 
        this.aGui.println(this.aCurrentRoom.getLongDescription());
        if(this.aCurrentRoom.getImageName() != null)
-            this.aGui.showImage(this.aCurrentRoom.getImageName());      
+            this.aGui.showImage(this.aCurrentRoom.getImageName());  
     }//ChangeRoom
     
-    public void fire()
-    {
-        Beamer vbeamer;
-        if(this.isCarried("beamer"))
-        {
-            vbeamer =(Beamer)this.aInventory.getItem("beamer");
-            if(vbeamer.getChargedRoom() == null)
-               this.aGui.println("Vous n'avez pas encore chargé le beamer !"); 
-            else
-            {
-                vbeamer.fire();
-                this.aGui.println("Vous utilisez le beamer et êtes téléporté");
-            }
-        } 
-        else
-            this.aGui.println("Vous ne portez pas le beamer !");
-        
-    }
-   
-    public void charge()
-    {
-        Beamer vbeamer;
-        if(this.isCarried("beamer"))
-        {
-            vbeamer =(Beamer)this.aInventory.getItem("beamer");
-            vbeamer.charge();
-            this.aGui.println("Vous chargez le beamer dans cette salle");
-        } 
-        else
-            this.aGui.println("Vous ne portez pas le beamer");
-        
-    }
-    
+
+    /**
+     * permet de savoir si un objet est porté ou non
+     * @param pS nom de l'objet
+     */
     public boolean isCarried(final String pS)
     {
         if (this.aInventory.getItem(pS) != null)

@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=pCommandWords
+comment0.target=InventaireCommand(CommandWords)
+comment1.params=pGameEngine
+comment1.target=void\ execute(pkg_core.GameEngine)
+numComments=2

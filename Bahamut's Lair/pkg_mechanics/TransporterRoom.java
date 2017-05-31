@@ -2,10 +2,10 @@ package pkg_mechanics;
 
 import java.util.ArrayList;
 /**
- * Write a description of class TransporterRoom here.
+ * Room nous téléportant aléatoirement à sa sortie.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Quentin Garrido
+ * @version 1.0
  */
 public class TransporterRoom extends Room
 {
@@ -14,6 +14,9 @@ public class TransporterRoom extends Room
 
     /**
      * Constructor for objects of class TransporterRoom
+     * @param pD Description de la pièce
+     * @param pI image de la pièce
+     * @pR Liste de pièces aléatoires dans lesquelles choisir
      */
     public TransporterRoom(final String pD, final String pI, final ArrayList<Room> pR)
     {
@@ -21,22 +24,24 @@ public class TransporterRoom extends Room
         aRandomizer = new RoomRandomizer(pR);
 
     }
-
+    
+    /**
+     * définit la valeur de la pièce ou aller(blocage aléatoire)
+     * @param pI
+     */
     public void setAlea(final Integer pI)
     {
         this.aAleaNb = pI;
     }
 
     /**
-     * 
-     * @p
-     * 
-     * 
+     * Récupère la sortie de la pièce 
+     * @param pE direction de la sortie(ici inutile)
+     * @return pièce où aller 
      */    
     @Override
     public Room getExit(String pE)
     {
-        System.out.println("Aleatoire :" + aAleaNb);
         if((Integer)this.aAleaNb != null && aAleaNb < this.aRandomizer.getRandomRoomList().size()-1)
             return this.aRandomizer.getRoom(this.aAleaNb);
 

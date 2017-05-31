@@ -23,8 +23,8 @@ import java.util.ArrayList;
  * This class implements a simple graphical user interface with a text entry
  * area, a text output area and an optional image.
  * 
- * @author Michael Kolling (DB edited)
- * @version 1.0 (Jan 2003)
+ * @author Quentin GARRIDO
+ * @version 1.0 (June 217)
  */
 public class UserInterface implements ActionListener
 {

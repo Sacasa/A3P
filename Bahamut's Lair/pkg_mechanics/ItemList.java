@@ -5,22 +5,24 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Write a description of class ItemList here.
+ * Permet d'utiliser des listes d'objets
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Quentin Garrido
+ * @version 1.0
  */
 public class ItemList
 {
     private Map<String,Item>aItemList;
-    
+    /**
+     * Cosntructeur de la classe ItemList
+     */
     public ItemList()
     {
-     this.aItemList = new HashMap<String,Item>();   
-        
+        this.aItemList = new HashMap<String,Item>();   
+
     }
-    
-        /**
+
+    /**
      * retourne l'objet associé à un nom
      * @param pName nom de l'objet
      * @return objet en question ( peut etre nul)
@@ -30,7 +32,7 @@ public class ItemList
         Item vItem = this.aItemList.get(pName);
         return vItem;        
     }
-    
+
     /**
      * Ajoute un objet dans la pièce
      * @param pI objet en question
@@ -39,7 +41,7 @@ public class ItemList
     {
         this.aItemList.put(pI.getName(), pI);
     }
-    
+
     /**
      * Enleve un objet dans la pièce
      * @param pI objet en question
@@ -48,12 +50,20 @@ public class ItemList
     {
         this.aItemList.remove(pN);
     }
-    
+
+    /**
+     * Nous dis si la Hashmap est vide
+     * @return true si vide, false si remplie
+     */
     public boolean isEmpty()
     {
         return this.aItemList.isEmpty();
     }
-    
+
+    /**
+     * retourne la liste des rooms sous forme d'une chaine de caracteres
+     * @return chaine de rooms
+     */
     @Override
     public String toString()
     {
@@ -69,9 +79,13 @@ public class ItemList
             }
             return vString;
         }        
-        
+
     }
-    
+
+    /**
+     *retourne la liste des rooms sous forme d'une chaine de caracteres avec leurs descriptions
+     * @return chaine de rooms 
+     */
     public String toStringDetail()
     {
         if (this.aItemList.isEmpty())
@@ -86,6 +100,6 @@ public class ItemList
             }
             return vString;
         }        
-        
+
     }
 }

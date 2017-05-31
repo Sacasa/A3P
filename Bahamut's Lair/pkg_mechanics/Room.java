@@ -1,6 +1,6 @@
 package pkg_mechanics;
 
- import java.util.HashMap; 
+import java.util.HashMap; 
 import java.util.Set;
 public class Room
 {
@@ -10,6 +10,7 @@ public class Room
     private HashMap<String, Room> aExits;
     private String aImageName;
     private ItemList aItems;
+    private HashMap<String, NPC> aNPCList;
     //Constructeurs
     /**
      * Constructeur de la piece
@@ -22,6 +23,7 @@ public class Room
         this.aExits = new HashMap<String, Room>();
         this.aItems = new ItemList();
         this.aImageName = pI;
+        this.aNPCList = new HashMap<String, NPC>();
     }//room      
     //Accesseurs
     /**
@@ -29,25 +31,31 @@ public class Room
      * @return Description
      */
     public String getDescription(){ return this.aDescription ; }//GetDescription
-    
+
     /**
      * Retourne la desctiption longue du lieu actuel, contenant la description du lieu et les sorties 
      * @return Description longue
      */
     public String getLongDescription()
     {
+        String vReturnString = "";
         if( this.aItems.isEmpty())
-            return "Vous êtes " + this.aDescription + ".\n" + this.getExitString();
+            vReturnString +=( "Vous êtes " + this.aDescription + ".\n" + this.getExitString());
         else 
-            return "Vous etes " + this.aDescription + ".\n" + this.getItemString() + ".\n" + this.getExitString(); 
+            vReturnString +=("Vous etes " + this.aDescription + ".\n" + this.getItemString() + ".\n" + this.getExitString());
+        if(!this.aNPCList.isEmpty())
+        {
+            vReturnString += ("\n" + this.getNPCString() );
+        }
+        return vReturnString;    
     }
-    
+
     /**
      * Return a string describing the room's image name
      * @return No mdel'image
      */
     public String getImageName(){return aImageName;}
-        
+
     /**
      * retourne la sortie correspondante
      * @param pD Donne la piece dans la direction de ce parametre
@@ -59,7 +67,7 @@ public class Room
         return this.aExits.get(pD);
 
     }//GetExit
-    
+
     public boolean isExit(final Room pR)
     {
         for(String vKey : this.aExits.keySet())
@@ -68,13 +76,11 @@ public class Room
                 return true;
             else
                 return false;
-            
+
         }
         return true;
     }
-    
-    
-    
+
     /**
      * retourne les différentes sorties de la piece actuelle
      * @return Les sorties
@@ -91,14 +97,14 @@ public class Room
         return vReturnString;
 
     }//getexitstring
-    
+
     /**
      * Récupere tous les objets dans la pièce
      * @return Chaine de caractères avec tous les objets dedans
      */
     public String getItemString()
     {
-       return "Les objets sont :" + this.aItems.toStringDetail();
+        return "Les objets sont :" + this.aItems.toStringDetail();
 
     }
     //Mutateurs
@@ -123,7 +129,7 @@ public class Room
         Item vItem = this.aItems.getItem(pName);
         return vItem;        
     }
-    
+
     /**
      * Ajoute un objet dans la pièce
      * @param pI objet en question
@@ -132,7 +138,7 @@ public class Room
     {
         this.aItems.addItem(pI);
     }
-    
+
     /**
      * Enleve un objet dans la pièce
      * @param pI objet en question
@@ -140,5 +146,36 @@ public class Room
     public void removeItem(final String pN)
     {
         this.aItems.removeItem(pN);
+    }
+
+    public void addNPC(final NPC pNPC )
+    {
+        this.aNPCList.put(pNPC.getName(),pNPC);
+
+    }
+
+    public void removeNPC(final NPC pNPC)
+    {
+        this.aNPCList.remove(pNPC.getName());
+    }
+
+    public String getNPCString()
+    {
+        String vReturnString = "Les personnages présents sont:";
+        Set<String> vKeys = this.aNPCList.keySet();
+        for(String vNPC : vKeys)
+        {
+            vReturnString += ", " + vNPC;
+        }
+
+        return vReturnString;  
+
+    }
+
+    public String getNPCDialogue(final String vNPC)
+    {     
+
+        return this.aNPCList.get(vNPC).getDialogue();
+
     }
 } // Room

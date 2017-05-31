@@ -1,15 +1,13 @@
 package pkg_mechanics;
 
-
 /**
- * Write a description of class Beamer here.
+ * LE beamer est un objet permettant de se téléporter entre les salles
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin Garrido
+ * @version 1.0
  */
 public class Beamer extends Item
 {
-    // instance variables - replace the example below with your own
     private Room aChargedRoom;
 
     /**
@@ -18,26 +16,38 @@ public class Beamer extends Item
     public Beamer()
     {
         super("beamer","Un beamer, objet antique permettant de se téléporter", 5,false);
- 
+
     }
-    
+
+    /**
+     * permet de charger la pièce dans la pièce courante
+     */
     public void charge()
     {
         this.aChargedRoom = this.getCurrentRoom();
-        
-        
+
     }
-    
+    /**
+     * permet de se téléporter dans la pièce en mémoire
+     */
     public void fire()
     {
-            super.getCarrier().changeRoom(aChargedRoom);
+        super.getCarrier().changeRoom(aChargedRoom);
     }
-    
+
+    /**
+     * récupère la pièce actuelle du porteur
+     * @return pièce actuelle
+     */
     public Room getCurrentRoom()
     {
-       return super.getCarrier().getCurrentRoom();
+        return super.getCarrier().getCurrentRoom();
     }
-    
+
+    /**
+     * récupère la pièce en mémoire
+     * @return pièce en mémoire
+     */
     public Room getChargedRoom()
     {
         return this.aChargedRoom;

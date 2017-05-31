@@ -45,6 +45,7 @@ public class CommandWords
         this.aCommandes.put(CommandWord.CHARGE, new ChargeCommand(this));
         this.aCommandes.put(CommandWord.FIRE, new FireCommand(this));
         this.aCommandes.put(CommandWord.ALEA, new AleaCommand(this));
+        this.aCommandes.put(CommandWord.TALK, new TalkCommand(this));
     } // CommandWords()
     
     /**
@@ -85,7 +86,11 @@ public class CommandWords
         return vString;
         
     }//getCommandList
-    
+    /**
+     * Permet de récupérer la commande associé a une chaine de caracteres
+     * @param pString chaine de caracters
+     * @return commande associée
+     */
         public Command getCommand(final String pString)
     {
         for(CommandWord vC : CommandWord.values())

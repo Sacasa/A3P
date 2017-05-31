@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=pD\ pI\ pR
+comment0.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\n\ @param\ pD\ Description\ de\ la\ pi\u00E8ce\n\ @param\ pI\ image\ de\ la\ pi\u00E8ce\n\ @pR\ Liste\ de\ pi\u00E8ces\ al\u00E9atoires\ dans\ lesquelles\ choisir\n
+comment1.params=pI
+comment1.target=void\ setAlea(java.lang.Integer)
+comment1.text=\n\ d\u00E9finit\ la\ valeur\ de\ la\ pi\u00E8ce\ ou\ aller(blocage\ al\u00E9atoire)\n\ @param\ pI\n
+comment2.params=pE
+comment2.target=Room\ getExit(java.lang.String)
+comment2.text=\n\ R\u00E9cup\u00E8re\ la\ sortie\ de\ la\ pi\u00E8ce\ \n\ @param\ pE\ direction\ de\ la\ sortie(ici\ inutile)\n\ @return\ pi\u00E8ce\ o\u00F9\ aller\ \n
+numComments=3

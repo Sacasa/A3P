@@ -1,11 +1,10 @@
 package pkg_mechanics;
 
-
 /**
- * Write a description of class Item here.
+ * Réprésente tous les objets du jeu
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Quentin Garrido 
+ * @version 1.0
  */
 public class Item
 {
@@ -14,7 +13,7 @@ public class Item
     private String aName;
     private boolean aEdible;
     private Player aCarrier;
-    
+
     /**
      * Initialise les attributs d'un item
      * @param pD Description
@@ -28,7 +27,7 @@ public class Item
         this.aName = pN;
         this.aEdible = pE;
     }
-    
+
     /**
      * Retourne la description de l'objet
      * @return description + poids
@@ -36,9 +35,9 @@ public class Item
     public String getItemInformation()
     {
         return this.aDescription + " qui a un poids de " + this.aWeight;
-           
+
     }
-    
+
     /**
      * Retourne le nom de l'objet
      * @return nom de l'objet
@@ -47,7 +46,7 @@ public class Item
     {
         return this.aName;
     }
-    
+
     /**
      * REtourne le poids de l'objet
      * @return poids de l'objet
@@ -55,9 +54,9 @@ public class Item
     public int getWeight()
     {
         return this.aWeight;
-        
+
     }
-    
+
     /**
      * retourne i l'objet est commestible
      * @return objet coemstible ou non
@@ -66,13 +65,20 @@ public class Item
     {
         return this.aEdible;
     }
-    
-    
+
+    /**
+     * définit le porteur de l'objet
+     * @param pP porteur
+     */
     public void setCarrier(final Player pP)
     {
         this.aCarrier = pP;        
     }
-    
+
+    /**
+     * retourne le porteur de l'objet
+     * @return porteur 
+     */
     public Player getCarrier()
     {
         return this.aCarrier;

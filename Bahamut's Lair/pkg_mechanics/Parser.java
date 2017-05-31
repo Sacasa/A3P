@@ -6,7 +6,7 @@ import pkg_command.Command;
 
 import java.util.Scanner;
 
-/*
+/**
  * This class is part of "World of Zuul". "World of Zuul" is a simple, 
  * text based adventure game.
  *

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=pD\ pN
+comment0.target=NPC(java.util.ArrayList,\ java.lang.String)
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ NPC\n\ @param\ pD\ Dialogues\ du\ personnage\n\ @param\ pN\ nom\ du\ personnage\n
+comment1.params=
+comment1.target=java.lang.String\ getName()
+comment1.text=\nRetourne\ le\ nom\ du\ pnj\n@return\ nom\ du\ pnj\n
+comment2.params=
+comment2.target=java.lang.String\ getDialogue()
+comment2.text=\n\ retourne\ le\ dialogue\ du\ pnj,\ soit\ le\ message\ de\ bienvenue\ (\ la\ premiere\ fois)\ soit\ un\ message\ al\u00E9atoire\n\ @return\ dialogue\n
+comment3.params=
+comment3.target=boolean\ getTextRandom()
+comment3.text=\n\ r\u00E9cup\u00E8re\ le\ fait\ que\ le\ texte\ soit\ al\u00E9atorie\ ou\ non\n\ @return\ Texte\ al\u00E9atoire\ ou\ non\ \n
+numComments=4
