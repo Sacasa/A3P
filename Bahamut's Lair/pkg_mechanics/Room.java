@@ -68,6 +68,11 @@ public class Room
 
     }//GetExit
 
+    /**
+     * nous dis si une Room est sortie de la pièce courante
+     * @param pR pièce a tester
+     * @return true si oui, false si non
+     */
     public boolean isExit(final Room pR)
     {
         for(String vKey : this.aExits.keySet())
@@ -177,5 +182,10 @@ public class Room
 
         return this.aNPCList.get(vNPC).getDialogue();
 
+    }
+
+    public HashMap<String, NPC> getNPCList()
+    {
+        return this.aNPCList;
     }
 } // Room

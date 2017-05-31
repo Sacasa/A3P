@@ -1,7 +1,9 @@
 #BlueJ class context
-comment0.params=pCommandWords
-comment0.target=GoCommand(CommandWords)
-comment1.params=pGameEngine
-comment1.target=void\ execute(pkg_core.GameEngine)
-comment1.text=\ \n\ Try\ to\ go\ to\ one\ direction.\ If\ there\ is\ an\ exit,\ enter\ the\ new\n\ room,\ otherwise\ print\ an\ error\ message.\n\ @param\ pCommand\ Commande\ de\ changementde\ piece\ \n
-numComments=2
+comment0.target=GoCommand
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ GoCommand\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pCommandWords
+comment1.target=GoCommand(CommandWords)
+comment2.params=pGameEngine
+comment2.target=void\ execute(pkg_core.GameEngine)
+comment2.text=\ \r\n\ Try\ to\ go\ to\ one\ direction.\ If\ there\ is\ an\ exit,\ enter\ the\ new\r\n\ room,\ otherwise\ print\ an\ error\ message.\r\n\ @param\ pCommand\ Commande\ de\ changementde\ piece\ \r\n
+numComments=3

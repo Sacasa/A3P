@@ -1,11 +1,13 @@
 #BlueJ class context
-comment0.params=pD\ pI\ pR
-comment0.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\n\ @param\ pD\ Description\ de\ la\ pi\u00E8ce\n\ @param\ pI\ image\ de\ la\ pi\u00E8ce\n\ @pR\ Liste\ de\ pi\u00E8ces\ al\u00E9atoires\ dans\ lesquelles\ choisir\n
-comment1.params=pI
-comment1.target=void\ setAlea(java.lang.Integer)
-comment1.text=\n\ d\u00E9finit\ la\ valeur\ de\ la\ pi\u00E8ce\ ou\ aller(blocage\ al\u00E9atoire)\n\ @param\ pI\n
-comment2.params=pE
-comment2.target=Room\ getExit(java.lang.String)
-comment2.text=\n\ R\u00E9cup\u00E8re\ la\ sortie\ de\ la\ pi\u00E8ce\ \n\ @param\ pE\ direction\ de\ la\ sortie(ici\ inutile)\n\ @return\ pi\u00E8ce\ o\u00F9\ aller\ \n
-numComments=3
+comment0.target=TransporterRoom
+comment0.text=\r\n\ Room\ nous\ t\u00E9l\u00E9portant\ al\u00E9atoirement\ \u00E0\ sa\ sortie.\r\n\ \r\n\ @author\ Quentin\ Garrido\r\n\ @version\ 1.0\r\n
+comment1.params=pD\ pI\ pR
+comment1.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.util.ArrayList)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\r\n\ @param\ pD\ Description\ de\ la\ pi\u00E8ce\r\n\ @param\ pI\ image\ de\ la\ pi\u00E8ce\r\n\ @pR\ Liste\ de\ pi\u00E8ces\ al\u00E9atoires\ dans\ lesquelles\ choisir\r\n
+comment2.params=pI
+comment2.target=void\ setAlea(java.lang.Integer)
+comment2.text=\r\n\ d\u00E9finit\ la\ valeur\ de\ la\ pi\u00E8ce\ ou\ aller(blocage\ al\u00E9atoire)\r\n\ @param\ pI\r\n
+comment3.params=pE
+comment3.target=Room\ getExit(java.lang.String)
+comment3.text=\r\n\ R\u00E9cup\u00E8re\ la\ sortie\ de\ la\ pi\u00E8ce\ \r\n\ @param\ pE\ direction\ de\ la\ sortie(ici\ inutile)\r\n\ @return\ pi\u00E8ce\ o\u00F9\ aller\ \r\n
+numComments=4

@@ -49,7 +49,8 @@ public class GoCommand extends Command
             if(vTempRoomList.get(1) == pGameEngine.getPlayer().getCurrentRoom() && vTempRoomList.get(2) == vNextRoom)
                 pGameEngine.clearStack();
                 
-            pGameEngine.getPlayer().changeRoom(vNextRoom);           
+            pGameEngine.getPlayer().changeRoom(vNextRoom);   
+            pGameEngine.isBahamutIn();
         }
     }//execute
 }

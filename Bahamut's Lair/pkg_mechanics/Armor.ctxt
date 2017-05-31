@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Armor
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Arme\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pN\ pDesc\ pW\ pDegats
+comment1.target=Armor(java.lang.String,\ java.lang.String,\ int,\ int)
+comment2.params=
+comment2.target=Armor()
+comment2.text=\r\n\ Constructeur\ par\ d\u00E9faut\ de\ l'Armure\r\n
+comment3.params=
+comment3.target=int\ getRes()
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5

@@ -1,8 +1,8 @@
 package pkg_command;
 import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
-
-
+import pkg_mechanics.Arme;
+import pkg_mechanics.Armor;
 /**
  * Write a description of class DropCommand here.
  *
@@ -37,6 +37,18 @@ public class DropCommand extends Command
                 vInventory.getItem(vName).setCarrier(null);
                 pGameEngine.getPlayer().getCurrentRoom().addItem(vInventory.getItem(vName));
                 pGameEngine.getPlayer().addCurrentWeight( -vInventory.getItem(vName).getWeight());
+                if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArme().getClass() &&
+                (Arme)vInventory.getItem(vName) == pGameEngine.getPlayer().getArme()    )
+                {
+                    pGameEngine.getPlayer().setArme(new Arme());
+                    pGameEngine.getGUI().println("Votre arme est désormais : " + pGameEngine.getPlayer().getArme().getName()); 
+                }
+                else if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArmor().getClass() &&
+                (Armor)vInventory.getItem(vName) == pGameEngine.getPlayer().getArmor()    )
+                {
+                    pGameEngine.getPlayer().setArmor(new Armor());
+                    pGameEngine.getGUI().println("Votre armure est désormais : " + pGameEngine.getPlayer().getArmor().getName()); 
+                }
                 vInventory.removeItem(vName);
             }
             else

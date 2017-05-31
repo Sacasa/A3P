@@ -27,7 +27,7 @@ public class RoomRandomizer
      */
     public Room getRandomRoom()
     {
-        int vIndex = (int)(Math.random() * (aRoomList.size()-1));
+        int vIndex = (int)(Math.random() * (aRoomList.size()));
         return aRoomList.get(vIndex);
     }
     

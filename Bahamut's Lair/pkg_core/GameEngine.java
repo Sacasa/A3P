@@ -1,6 +1,4 @@
 
-
-
 package pkg_core;
 import pkg_mechanics.Player;
 import pkg_mechanics.Parser;
@@ -10,11 +8,11 @@ import pkg_mechanics.Beamer;
 import pkg_mechanics.Item;
 import pkg_command.Command;
 import pkg_mechanics.NPC;
+import pkg_mechanics.MovingNPC;
+import pkg_mechanics.Arme;
+import pkg_mechanics.Armor;
 
-
-
-
-
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Scanner;
@@ -41,6 +39,7 @@ public class GameEngine
     private int aNbMoves;
     private static final int MAX_MOVES = 20;
     private boolean aTestMode ;
+    private MovingNPC aBahamut;
 
     /**
      * Constructor for objects of class GameEngine
@@ -65,7 +64,7 @@ public class GameEngine
         this.aPlayer.setGui(aGui);
         printWelcome();
     }//setGui
-    
+
     /**
      * retourne l'IHM
      * @return l'interface graphique
@@ -74,7 +73,7 @@ public class GameEngine
     {
         return this.aGui;
     }
-    
+
     /**
      * retourne le player
      * @return le player
@@ -113,47 +112,54 @@ public class GameEngine
         //Montagne
 
         Room vEntreeH = new Room("face à l'entrée de l'antre du Bahamut","./Images/EntreeH.jpg"); 
-        
+
         ArrayList<String> vDialogueNain = new ArrayList<String>();
         vDialogueNain.add("Bonjour aventurrrrrier !, qu'est ce qui vous amenes ici ?");
         vDialogueNain.add("Salopperrrrie de drrragon en bas !");
         vDialogueNain.add("Mais où est mon orrr");
         vDialogueNain.add("Beurrrrk encore un elfe");
-        
+
         ArrayList<String> vDialogueKenny = new ArrayList<String>();
         vDialogueKenny.add("Mmmph mph mmmhp");
         vDialogueKenny.add("mmmmmmmphhhh mmm");
         vDialogueKenny.add("mmmmmmph mmmmmh");
         vDialogueKenny.add("hmmmmph hmmmmph mmm mm");
-        
+
         ArrayList<String> vDialogueCartman = new ArrayList<String>();
         vDialogueCartman.add("Salut enculé de merde !");
         vDialogueCartman.add("C'est un dauphin-juif. Un juifin !");
         vDialogueCartman.add("Je suis pas gros. je suis jovial et épanoui !");
         vDialogueCartman.add("Toi, tu fais des mômes et tu fermes ta gueule");
         vDialogueCartman.add("Je vous emmerde etje rentre à ma maison");
-        
+
         vEntreeH.addNPC(new NPC(vDialogueNain, "Gimli"));
         vEntreeH.addItem(new Item("lemba", "un lemba, pain magiue elfique", 1, true));
         vEntreeH.addItem(new Beamer());
         Room vSommetEst = new Room("sur le flanc est de la motagne","./Images/Montagne.jpg");
         vSommetEst.addItem(new Item("torche","une torche pour vous éclairer dans ce donjon",1, false));
 
+        ArrayList<String> vDialogueBahamut = new ArrayList<String>();
+        vDialogueBahamut.add("Que faites vous ici ! sortez de mon antre !");
+        vDialogueBahamut.add("Je vous détruire!");
+        vDialogueBahamut.add("Meurs Insecte !");
+        vDialogueBahamut.add("Tuu ne fais pas le poids aventurier");
         //Etage 1
 
         Room vEntreeB = new Room("dans l'entrée de l'antre, l'escalier pour sortir s'est refermé, vous ne pouvez plus partir désormais.","./Images/EntreeB.jpg");
         Room vRagnarok = new Room("dans la salle ou se trouve Ragnarok, la lance légendaire","./Images/Ragnarok.jpg");
-        vRagnarok.addItem(new Item("ragnarok","Ragnarok, lance légendaire",5, false));
+        vRagnarok.addItem(new Arme("ragnarok","Ragnarok, lance légendaire",5,10));
         vRagnarok.addItem(new Item("casque","Le casque ayant appartenu au derneir gardien de ces lieux", 1, false));
-        Room vEscalierH = new Room("en haut de l'escalier principal de l'antre",".,,/Images/Mine.jpg");
-
+        Room vEscalierH = new Room("en haut de l'escalier principal de l'antre","./Images/Mine.jpg");
         //Etage 2
 
         Room vEscalierB = new Room("en bas de l'escalier principal de l'antre","./Images/Escalier.jpg");
-        Room vBahamut = new Room("dans la salle du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Bahamut.jpg");
+        vEscalierB.addItem(new Armor("cotte", " une bienne belle cotte de maille", 5, 20));
+        Room vBahamut1 = new Room("dans la salle centrale de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
+        Room vBahamutG = new Room("dans la salle gauche de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
+        Room vBahamutD = new Room("dans la salle droite de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
+        Room vBahamutN = new Room("dans la salle au nord de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
 
         //Sorties
-
         vSommetEst.setExit("ouest", vEntreeH);
         vEntreeH.setExit("est", vSommetEst);
         vEntreeH.setExit("bas", vEntreeB);
@@ -167,9 +173,15 @@ public class GameEngine
         vEscalierH.setExit("nord", vEntreeB);
 
         vEscalierB.setExit("haut", vEscalierH);
-        vEscalierB.setExit("nord", vBahamut);
-        vBahamut.setExit("sud", vEscalierB);
+        vEscalierB.setExit("nord", vBahamut1);
+        vBahamut1.setExit("sud", vEscalierB);
+        vBahamut1.setExit("nord", vBahamutN);
+        vBahamut1.setExit("est", vBahamutD);
+        vBahamut1.setExit("ouest", vBahamutG);
 
+        vBahamutG.setExit("est", vBahamut1);
+        vBahamutD.setExit("ouest", vBahamut1);
+        vBahamutN.setExit("sud", vBahamut1);
         //add Rooms to list
 
         aRoomList.add(vSommetEst);
@@ -178,14 +190,26 @@ public class GameEngine
         aRoomList.add(vRagnarok);
         aRoomList.add(vEscalierH);
         aRoomList.add(vEscalierB);
-        aRoomList.add(vBahamut);
+        aRoomList.add(vBahamut1);
+        aRoomList.add(vBahamutG);
+        aRoomList.add(vBahamutD);
+        aRoomList.add(vBahamutN);
+
+        //Create RoomList for the boss
+        ArrayList<Room> vBossRooms = new ArrayList();
+        vBossRooms.add(vBahamut1 );
+        vBossRooms.add(vBahamutG );
+        vBossRooms.add(vBahamutD );
+        vBossRooms.add(vBahamutN );
+
+        this.aBahamut = new MovingNPC(vDialogueBahamut, "Bahamut", vBossRooms,vBahamut1);
+        vBahamut1.addNPC(this.aBahamut);
 
         Room vTransporter = new TransporterRoom("dans une salle où se trouve seulement un téléporteur, même pas de porte !","./Images/Transporter.jpg",this.aRoomList);
         vTransporter.addNPC(new NPC(vDialogueKenny,"Kenny"));
         vTransporter.addNPC(new NPC(vDialogueCartman,"Cartman"));
         aRoomList.add(vTransporter);
         vEscalierB.setExit("est",vTransporter);
-       
 
     }//createrooms
     /**
@@ -195,7 +219,7 @@ public class GameEngine
     {
         this.printLocation();        
     }//look
-    
+
     /**
      * Permet de changer le mode de Test
      * @param pB état futur du mode de test
@@ -205,8 +229,7 @@ public class GameEngine
     {
         this.aTestMode = pB;
     }
-    
-    
+
     /**
      * Permet de récupérer le mode de Test
      * @return mode de test
@@ -216,7 +239,7 @@ public class GameEngine
     {
         return this.aTestMode;
     }
-    
+
     /**
      * retourne le parser
      * @return le parser
@@ -297,7 +320,7 @@ public class GameEngine
         }
 
     }
-    
+
     /**
      * Permet d'incrémenter le compteur de et de vérifier si i lfaut arrêter la jeu à un déplacement
      * @param pR pièce actuelle avant le déplacement
@@ -312,6 +335,7 @@ public class GameEngine
             return;           
         }
         this.aRoomStack.push(pR);
+        this.aBahamut.move();
         this.aNbMoves ++ ; 
     }
 
@@ -345,4 +369,26 @@ public class GameEngine
         aGui.println("Merci d'avoir joué !");
         aGui.enable(false);
     }//endgame  
+
+    /**
+     * Methode pour récupérer le bahamut
+     * @return Bahamut
+     */
+    public MovingNPC getBahamut()
+    {
+        return this.aBahamut;      
+    }
+
+    /**
+     * Permet de savoir si le bahamut est dans la pièce du joueur
+     * Si il y est, on affiche son image
+     */
+    public void isBahamutIn()
+    {
+        if(!(this.aPlayer.getCurrentRoom().getNPCList().get(this.aBahamut.getName()) == null))
+        {
+            this.aGui.showImage("./Images/Bahamut.jpg");
+        }
+    }
 }
+

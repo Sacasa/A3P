@@ -1,7 +1,8 @@
 package pkg_command;
 import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
-
+import pkg_mechanics.Arme;
+import pkg_mechanics.Armor;
 
 /**
  * Write a description of class InventaireCommand here.
@@ -26,10 +27,10 @@ public class InventaireCommand extends Command
         String vName = super.getSecondWord(); 
         ItemList vInventory = pGameEngine.getPlayer().getInventory();
         if (vInventory.isEmpty())
-            pGameEngine.getGUI().println("Votre inventaire est vide");
+            pGameEngine.getGUI().println("Votre inventaire est vide"+ "\n" + pGameEngine.getPlayer().getEquipment());
         else
         {
-            String vString = "Dans voter inventaire se trouvent : "+ vInventory.toString() + " pour un poids total de " + pGameEngine.getPlayer().getCurrentWeight();
+            String vString = "Dans voter inventaire se trouvent : "+ vInventory.toString() + " pour un poids total de " + pGameEngine.getPlayer().getCurrentWeight()+ "\n" + pGameEngine.getPlayer().getEquipment();
             pGameEngine.getGUI().println(vString);
         }
     }//execute

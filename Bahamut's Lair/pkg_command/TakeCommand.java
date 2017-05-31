@@ -1,6 +1,7 @@
 package pkg_command;
 import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
+import pkg_mechanics.Arme;
 /**
  * Write a description of class TakeCommand here.
  *
@@ -30,20 +31,20 @@ public class TakeCommand extends Command
         else
         {
             if(pGameEngine.getPlayer().getCurrentRoom().getItem(vName) != null)
-        {
-            if(pGameEngine.getPlayer().getCurrentWeight() +pGameEngine.getPlayer().getCurrentRoom().getItem(vName).getWeight() > pGameEngine.getPlayer().getMaxWeight())
-                pGameEngine.getGUI().println("Cet objet est trop lourd pour vous !");
-            else
             {
-               vInventory.addItem(pGameEngine.getPlayer().getCurrentRoom().getItem(vName));
-                pGameEngine.getPlayer().getCurrentRoom().getItem(vName).setCarrier(pGameEngine.getPlayer());
-                pGameEngine.getPlayer().getCurrentRoom().removeItem(vName);
-                pGameEngine.getGUI().println("Vous récupérez " + vInventory.getItem(vName).getItemInformation());
-                pGameEngine.getPlayer().addCurrentWeight(vInventory.getItem(vName).getWeight());
+                if(pGameEngine.getPlayer().getCurrentWeight() +pGameEngine.getPlayer().getCurrentRoom().getItem(vName).getWeight() > pGameEngine.getPlayer().getMaxWeight())
+                    pGameEngine.getGUI().println("Cet objet est trop lourd pour vous !");
+                else
+                {
+                    vInventory.addItem(pGameEngine.getPlayer().getCurrentRoom().getItem(vName));
+                    pGameEngine.getPlayer().getCurrentRoom().getItem(vName).setCarrier(pGameEngine.getPlayer());
+                    pGameEngine.getPlayer().getCurrentRoom().removeItem(vName);
+                    pGameEngine.getGUI().println("Vous récupérez " + vInventory.getItem(vName).getItemInformation());
+                    pGameEngine.getPlayer().addCurrentWeight(vInventory.getItem(vName).getWeight());
+                }
             }
-        }
-        else
-            pGameEngine.getGUI().println("Cet objet n'est pas présent dans la salle");
+            else
+                pGameEngine.getGUI().println("Cet objet n'est pas présent dans la salle");
         }
     }//execute
 }

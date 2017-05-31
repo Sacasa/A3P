@@ -17,16 +17,13 @@ import pkg_core.UserInterface;
 
 public class Game
 {
-	private UserInterface gui;
-	private GameEngine engine;
-
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
+    public static void main(final String[] pArgs)
     {
-		engine = new GameEngine();
-		gui = new UserInterface(engine);
-		engine.setGUI(gui);
+		GameEngine vEngine = new GameEngine();
+		UserInterface vGui = new UserInterface(vEngine);
+		vEngine.setGUI(vGui);
     }//Game)
 }//Game
