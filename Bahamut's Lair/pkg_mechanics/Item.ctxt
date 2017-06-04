@@ -12,6 +12,7 @@ comment3.target=java.lang.String\ getName()
 comment3.text=\r\n\ Retourne\ le\ nom\ de\ l'objet\r\n\ @return\ nom\ de\ l'objet\r\n
 comment4.params=
 comment4.target=java.lang.String\ getDescription()
+comment4.text=\r\n\ @return\ description\ de\ l'objet\r\n
 comment5.params=
 comment5.target=int\ getWeight()
 comment5.text=\r\n\ REtourne\ le\ poids\ de\ l'objet\r\n\ @return\ poids\ de\ l'objet\r\n

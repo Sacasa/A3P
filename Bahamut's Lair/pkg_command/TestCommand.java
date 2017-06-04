@@ -15,14 +15,18 @@ public class TestCommand extends Command
     private CommandWords aCommandWords;
 
     /**
-     * Constructor for objects of class TestCommand
+     * Constructeur de la classe TestCommand
+     * @param pCommandWords mot de commande associé
      */
     public TestCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }
-
+    /** 
+     * Permet d'éxécuter une série de commandes dans un fichier
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

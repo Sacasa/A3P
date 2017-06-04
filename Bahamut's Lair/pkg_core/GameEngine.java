@@ -111,7 +111,7 @@ public class GameEngine
 
         //Montagne
 
-        Room vEntreeH = new Room("face à l'entrée de l'antre du Bahamut","./Images/EntreeH.jpg"); 
+        Room vEntreeH = new Room("face à l'entrée de l'antre du Bahamut","Images/EntreeH.jpg"); 
 
         ArrayList<String> vDialogueNain = new ArrayList<String>();
         vDialogueNain.add("Bonjour aventurrrrrier !, qu'est ce qui vous amenes ici ?");
@@ -127,15 +127,15 @@ public class GameEngine
 
         ArrayList<String> vDialogueCartman = new ArrayList<String>();
         vDialogueCartman.add("Salut enculé de merde !");
-        vDialogueCartman.add("C'est un dauphin-juif. Un juifin !");
+        vDialogueCartman.add("C'est un dragon-juif. Un juifon !");
         vDialogueCartman.add("Je suis pas gros. je suis jovial et épanoui !");
         vDialogueCartman.add("Toi, tu fais des mômes et tu fermes ta gueule");
         vDialogueCartman.add("Je vous emmerde etje rentre à ma maison");
 
-        vEntreeH.addNPC(new NPC(vDialogueNain, "Gimli"));
+        vEntreeH.addNPC(new NPC(vDialogueNain, "Gimli",vEntreeH));
         vEntreeH.addItem(new Item("lemba", "un lemba, pain magiue elfique", 1, true));
         vEntreeH.addItem(new Beamer());
-        Room vSommetEst = new Room("sur le flanc est de la motagne","./Images/Montagne.jpg");
+        Room vSommetEst = new Room("sur le flanc est de la motagne","Images/Montagne.jpg");
         vSommetEst.addItem(new Item("torche","une torche pour vous éclairer dans ce donjon",1, false));
 
         ArrayList<String> vDialogueBahamut = new ArrayList<String>();
@@ -145,19 +145,19 @@ public class GameEngine
         vDialogueBahamut.add("Tuu ne fais pas le poids aventurier");
         //Etage 1
 
-        Room vEntreeB = new Room("dans l'entrée de l'antre, l'escalier pour sortir s'est refermé, vous ne pouvez plus partir désormais.","./Images/EntreeB.jpg");
-        Room vRagnarok = new Room("dans la salle ou se trouve Ragnarok, la lance légendaire","./Images/Ragnarok.jpg");
-        vRagnarok.addItem(new Arme("ragnarok","Ragnarok, lance légendaire",5,10));
+        Room vEntreeB = new Room("dans l'entrée de l'antre, l'escalier pour sortir s'est refermé, vous ne pouvez plus partir désormais.","Images/EntreeB.jpg");
+        Room vRagnarok = new Room("dans la salle ou se trouve Ragnarok, la lance légendaire","Images/Ragnarok.jpg");
+        vRagnarok.addItem(new Arme("ragnarok","Ragnarok, lance légendaire",5,20));
         vRagnarok.addItem(new Item("casque","Le casque ayant appartenu au derneir gardien de ces lieux", 1, false));
-        Room vEscalierH = new Room("en haut de l'escalier principal de l'antre","./Images/Mine.jpg");
+        Room vEscalierH = new Room("en haut de l'escalier principal de l'antre","Images/Mine.jpg");
         //Etage 2
 
-        Room vEscalierB = new Room("en bas de l'escalier principal de l'antre","./Images/Escalier.jpg");
-        vEscalierB.addItem(new Armor("cotte", " une bienne belle cotte de maille", 5, 20));
-        Room vBahamut1 = new Room("dans la salle centrale de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
-        Room vBahamutG = new Room("dans la salle gauche de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
-        Room vBahamutD = new Room("dans la salle droite de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
-        Room vBahamutN = new Room("dans la salle au nord de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","./Images/Chambre.png");
+        Room vEscalierB = new Room("en bas de l'escalier principal de l'antre","Images/Escalier.jpg");
+        vEscalierB.addItem(new Armor("cotte", " une cotte de maille en mithril", 5, 40));
+        Room vBahamut1 = new Room("dans la salle centrale de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");
+        Room vBahamutG = new Room("dans la salle gauche de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");
+        Room vBahamutD = new Room("dans la salle droite de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");
+        Room vBahamutN = new Room("dans la salle au nord de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");
 
         //Sorties
         vSommetEst.setExit("ouest", vEntreeH);
@@ -196,18 +196,18 @@ public class GameEngine
         aRoomList.add(vBahamutN);
 
         //Create RoomList for the boss
-        ArrayList<Room> vBossRooms = new ArrayList();
+        ArrayList<Room> vBossRooms = new ArrayList<Room>();
         vBossRooms.add(vBahamut1 );
         vBossRooms.add(vBahamutG );
         vBossRooms.add(vBahamutD );
         vBossRooms.add(vBahamutN );
 
-        this.aBahamut = new MovingNPC(vDialogueBahamut, "Bahamut", vBossRooms,vBahamut1);
+        this.aBahamut = new MovingNPC(vDialogueBahamut, "Bahamut",50,10,10,true,new Item("fiole", "une fiole de sang du bahamut",1,false),vBahamut1,vBossRooms);
         vBahamut1.addNPC(this.aBahamut);
 
-        Room vTransporter = new TransporterRoom("dans une salle où se trouve seulement un téléporteur, même pas de porte !","./Images/Transporter.jpg",this.aRoomList);
-        vTransporter.addNPC(new NPC(vDialogueKenny,"Kenny"));
-        vTransporter.addNPC(new NPC(vDialogueCartman,"Cartman"));
+        Room vTransporter = new TransporterRoom("dans une salle où se trouve seulement un téléporteur, même pas de porte !","Images/Transporter.jpg",this.aRoomList);
+        vTransporter.addNPC(new NPC(vDialogueKenny,"Kenny",vTransporter));
+        vTransporter.addNPC(new NPC(vDialogueCartman,"Cartman",vTransporter));
         aRoomList.add(vTransporter);
         vEscalierB.setExit("est",vTransporter);
 
@@ -387,7 +387,7 @@ public class GameEngine
     {
         if(!(this.aPlayer.getCurrentRoom().getNPCList().get(this.aBahamut.getName()) == null))
         {
-            this.aGui.showImage("./Images/Bahamut.jpg");
+            this.aGui.showImage("Images/Bahamut.jpg");
         }
     }
 }

@@ -12,13 +12,19 @@ public class FireCommand extends Command
 {
     // instance variables - replace the example below with your own
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe FireCommand
+     * @param pCommandWords mot de commande associé
+     */
     public FireCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * Permet de se téléporter si le beamer est chargé
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

@@ -46,13 +46,15 @@ public class Item
     {
         return this.aName;
     }
-    
+
+    /**
+     * @return description de l'objet
+     */
     public String getDescription()
     {
         return this.aDescription;
     }
-    
-    
+
     /**
      * REtourne le poids de l'objet
      * @return poids de l'objet

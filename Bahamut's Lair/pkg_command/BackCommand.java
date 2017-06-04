@@ -14,6 +14,7 @@ public class BackCommand extends Command
 
     /**
      * Constructor for objects of class BackCommand
+     * @param pCommandWords mot de commande associé
      */
     public BackCommand(final CommandWords pCommandWords)
     {
@@ -22,9 +23,8 @@ public class BackCommand extends Command
     }//Constructeur()
 
     /** 
-     * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message.
-     * @param pCommand Commande de changementde piece 
+     * Retourne en arrière si cela est possible, sinon affiche un message d'erreur
+     * @param pGameEngine GameEngine qui éxécutera la commande
      */
     @Override
     public void execute(final GameEngine pGameEngine)

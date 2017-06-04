@@ -10,7 +10,14 @@ package pkg_mechanics;
 public class Arme extends Item
 {
     private int aDegats;
-
+    
+    /**
+     * Construteur de la classe Arme
+     * @param pN    Nom de l'arme
+     * @param pDesc Description de l'arme
+     * @param pW    poids de l'arme
+     * @param pRes resistance de l'arme 
+     */
     public Arme(final String pN,final String pDesc, final int pW, final int pDegats)
     {
         super(pN,pDesc,pW,false);
@@ -25,12 +32,18 @@ public class Arme extends Item
         this("poings","vos poings", 0, 1);
     }
 
-    
+    /**
+     * @return degats de l'arme
+     */
     public int getDegats()
     {
         return this.aDegats;
     }
     
+    /**
+     * permet un affichage clair de l'arme
+     * @return descirption claire de l'arme
+     */
     @Override
     public String toString()
     {       

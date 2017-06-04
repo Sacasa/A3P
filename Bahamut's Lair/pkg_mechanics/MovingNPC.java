@@ -2,15 +2,15 @@ package pkg_mechanics;
 
 import java.util.ArrayList;
 /**
- * Write a description of class MovingNPC here.
+ * Sert a créer des NPC se déplaçant
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin Garrido
+ * @version 1.0
  */
 public class MovingNPC extends NPC
 {
     // instance variables - replace the example below with your own
-    private Room aCurrentRoom;
+    
     private RoomRandomizer aRoomRandomizer;
 
     /**
@@ -20,23 +20,21 @@ public class MovingNPC extends NPC
      * @param pAR Liste de salles où se déplacer
      * @param pR Piece initiale(non aléatoire)
      */
-    public MovingNPC(final ArrayList<String> pD, final String pN, final ArrayList<Room> pAR, final Room pR)
+    public MovingNPC(final ArrayList<String> pD, final String pN,final double pHP, final int pDegats, final int pArmure, final boolean pK, final Item pLoot, final Room pCR, final ArrayList<Room> pAR)
     {
-        super(pD,pN);
+        super(pD,pN,pHP,pDegats,pArmure,pK,pLoot,pCR);
         this.aRoomRandomizer = new RoomRandomizer(pAR);
-        this.aCurrentRoom = pR;
+
     }//MovingNPC
 
+    /**
+    *déplace le personnage dans une nouvelle pièce aléatoire
+    */
     public void move()
     {   
-        this.aCurrentRoom.getNPCList().remove(super.getName());
-        this.aCurrentRoom = this.aRoomRandomizer.getRandomRoom();    
-        this.aCurrentRoom.getNPCList().put(super.getName(), this);
+        super.getCurrentRoom().getNPCList().remove(super.getName());
+        super.setCurrentRoom(this.aRoomRandomizer.getRandomRoom());    
+        super.getCurrentRoom().getNPCList().put(super.getName(), this);
     }//move
-
-    public Room getCurrentRoom()
-    {
-        return this.aCurrentRoom;
-    }   
 
 }

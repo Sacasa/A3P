@@ -12,13 +12,19 @@ import pkg_mechanics.Beamer;
 public class ChargeCommand extends Command
 {
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe ChargeCommand
+     * @param pCommandWords mot de commande associé
+     */
     public ChargeCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * permet de charger le beamer dans la salle actuelle
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

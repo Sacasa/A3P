@@ -40,9 +40,9 @@ public class Room
     {
         String vReturnString = "";
         if( this.aItems.isEmpty())
-            vReturnString +=( "Vous êtes " + this.aDescription + ".\n" + this.getExitString());
+            vReturnString +=( "Vous êtes " + this.aDescription + ".\n" + this.getExitString())+"\n"+"---------------------------------------------------";
         else 
-            vReturnString +=("Vous etes " + this.aDescription + ".\n" + this.getItemString() + ".\n" + this.getExitString());
+            vReturnString +=("Vous etes " + this.aDescription + ".\n" + this.getItemString() + ".\n" + this.getExitString())+"\n"+"---------------------------------------------------";
         if(!this.aNPCList.isEmpty())
         {
             vReturnString += ("\n" + this.getNPCString() );
@@ -159,9 +159,9 @@ public class Room
 
     }
 
-    public void removeNPC(final NPC pNPC)
+    public void removeNPC(final String pName)
     {
-        this.aNPCList.remove(pNPC.getName());
+        this.aNPCList.remove(pName);
     }
 
     public String getNPCString()
@@ -177,15 +177,20 @@ public class Room
 
     }
 
-    public String getNPCDialogue(final String vNPC)
+    public String getNPCDialogue(final String pNPC)
     {     
 
-        return this.aNPCList.get(vNPC).getDialogue();
+        return this.aNPCList.get(pNPC).getDialogue();
 
     }
 
     public HashMap<String, NPC> getNPCList()
     {
         return this.aNPCList;
+    }
+    
+    public NPC getNPC(final String pN)
+    {
+        return this.aNPCList.get(pN);
     }
 } // Room

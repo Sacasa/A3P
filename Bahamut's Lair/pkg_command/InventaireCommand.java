@@ -13,13 +13,19 @@ import pkg_mechanics.Armor;
 public class InventaireCommand extends Command
 {
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe InventaireCommand
+     * @param pCommandWords mot de commande associé
+     */
     public InventaireCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * permet d'afficher l'inventaire
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

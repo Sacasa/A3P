@@ -1,7 +1,10 @@
 #BlueJ package file
-dependency1.from=GameEngine
-dependency1.to=UserInterface
+dependency1.from=UserInterface
+dependency1.to=GameEngine
 dependency1.type=UsesDependency
+dependency2.from=GameEngine
+dependency2.to=UserInterface
+dependency2.type=UsesDependency
 objectbench.height=154
 objectbench.width=760
 package.divider.horizontal=0.6
@@ -12,7 +15,7 @@ package.editor.x=77
 package.editor.y=72
 package.frame.height=600
 package.frame.width=800
-package.numDependencies=1
+package.numDependencies=2
 package.numTargets=2
 package.showExtends=true
 package.showUses=true

@@ -14,13 +14,19 @@ public class AleaCommand extends Command
 {
     // instance variables - replace the example below with your own
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe AleaCommand
+     * @param pCommandWords mot de commande associé
+     */
     public AleaCommand(final CommandWords superWords)
     {
         super(null);
         this.aCommandWords = superWords;
     }//Constructeur()
-
+    /** 
+     * permet de bloquer l'aléatoire des transporter room ou de le réactiver
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

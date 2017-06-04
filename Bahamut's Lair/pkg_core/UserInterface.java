@@ -148,7 +148,7 @@ public class UserInterface implements ActionListener
         this.aButtonHarakiri = new JButton("back");
         this.aButtonEat = new JButton("wait");
         this.aButtonLook = new JButton("look");
-        this.aButtonAttack = new JButton("attack");
+        this.aButtonAttack = new JButton("help");
         
         
         JPanel vPanelButton = new JPanel();

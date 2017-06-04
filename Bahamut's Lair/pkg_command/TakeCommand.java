@@ -11,13 +11,19 @@ import pkg_mechanics.Arme;
 public class TakeCommand extends Command
 {
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe TakeCommand
+     * @param pCommandWords mot de commande associé
+     */
     public TakeCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * permet de prendre un objet présent dans la salle
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

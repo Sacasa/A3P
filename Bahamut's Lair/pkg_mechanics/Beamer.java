@@ -27,6 +27,7 @@ public class Beamer extends Item
         this.aChargedRoom = this.getCurrentRoom();
 
     }
+
     /**
      * permet de se téléporter dans la pièce en mémoire
      */

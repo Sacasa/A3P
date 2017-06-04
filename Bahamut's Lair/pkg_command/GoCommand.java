@@ -13,16 +13,18 @@ public class GoCommand extends Command
 {
     // instance variables - replace the example below with your own
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe GoCommad
+     * @param pCommandWords mot de commande associé
+     */
     public GoCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
     /** 
-     * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message.
-     * @param pCommand Commande de changementde piece 
+     * Permet d'aller dans une salel adjacente à l'actuelle
+     * @param pGameEngine GameEngine qui éxécutera la commande
      */
     @Override
     public void execute(final GameEngine pGameEngine)

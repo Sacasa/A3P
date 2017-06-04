@@ -12,13 +12,19 @@ import pkg_mechanics.Armor;
 public class DropCommand extends Command
 {
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe DropCommand
+     * @param pCommandWords mot de commande associé
+     */
     public DropCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * Permet de déposer un objet présent dans l'inventaire
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {

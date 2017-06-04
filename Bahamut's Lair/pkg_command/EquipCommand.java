@@ -12,13 +12,19 @@ import pkg_mechanics.Armor;
 public class EquipCommand extends Command
 {
     private CommandWords aCommandWords;
-
+    /**
+     * Constructeur de la classe EquipCommand
+     * @param pCommandWords mot de commande associé
+     */
     public EquipCommand(final CommandWords pCommandWords)
     {
         super(null);
         this.aCommandWords = pCommandWords;
     }//Constructeur()
-
+    /** 
+     * permet d'équiper une arme ou une armure
+     * @param pGameEngine GameEngine qui éxécutera la commande
+     */
     @Override
     public void execute(final GameEngine pGameEngine)
     {
@@ -31,19 +37,24 @@ public class EquipCommand extends Command
         }
         else
         {
-            if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArme().getClass())
-            {
-                pGameEngine.getPlayer().setArme((Arme)vInventory.getItem(vName));
-                pGameEngine.getGUI().println("Votre arme est désormais : " + pGameEngine.getPlayer().getArme().getName()); 
-            }
-            else if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArmor().getClass())
-            {
-                pGameEngine.getPlayer().setArmor((Armor)vInventory.getItem(vName));
-                pGameEngine.getGUI().println("Votre armure est désormais : " + pGameEngine.getPlayer().getArmor().getName()); 
-            }
+            if(vInventory.getItem(vName) == null)
+                pGameEngine.getGUI().println("Cet objet n'est pas dans votre inventaire !");
             else
             {
-                pGameEngine.getGUI().println("Cet objet n'est pas équipable");
+                if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArme().getClass())
+                {
+                    pGameEngine.getPlayer().setArme((Arme)vInventory.getItem(vName));
+                    pGameEngine.getGUI().println("Votre arme est désormais : " + pGameEngine.getPlayer().getArme().getName()); 
+                }
+                else if(vInventory.getItem(vName).getClass() == pGameEngine.getPlayer().getArmor().getClass())
+                {
+                    pGameEngine.getPlayer().setArmor((Armor)vInventory.getItem(vName));
+                    pGameEngine.getGUI().println("Votre armure est désormais : " + pGameEngine.getPlayer().getArmor().getName()); 
+                }
+                else
+                {
+                    pGameEngine.getGUI().println("Cet objet n'est pas équipable");
+                }
             }
         }
     }//execute

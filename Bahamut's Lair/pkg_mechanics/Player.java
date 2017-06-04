@@ -20,6 +20,7 @@ public class Player
     private int aCurrentWeight;
     private UserInterface aGui;
     private ItemList aInventory;
+    private double aHP;
     private Arme aArme;
     private Armor aArmor;
 
@@ -38,6 +39,7 @@ public class Player
         this.aInventory = new ItemList();
         this.aArme = new Arme();
         this.aArmor = new Armor();
+        this.aHP = 20.0;
     }//player
 
     /**
@@ -58,7 +60,12 @@ public class Player
     {
         return this.aMaxWeight;
     }
-
+    
+    public void addHP(final double pHP)
+    {
+        this.aHP += pHP;
+    }
+    
     /**
      * retourne l'inventaire du joueur
      * @return inventaire du joueur
@@ -129,35 +136,71 @@ public class Player
             return false;
 
     }
-    
+    /**
+     * @return arme actuelle du joueur
+     */
     public Arme getArme()
     {
         return this.aArme;
     }
+    /**
+     * Définit l'arme du joueur
+     * @param pArme arme a donner au joueur
+     */
     public void setArme(final Arme pArme)
     {
         this.aArme = pArme;
     }
+    
+    /**
+     * @return degats de l'arme du joueur
+     */
     public int getDegats()
     {
         return this.aArme.getDegats();
     }
-    
-        public Armor getArmor()
+    /**
+     * @return l'armure du joueur
+     */
+    public Armor getArmor()
     {
         return this.aArmor;
     }
+    /**
+     * Définit l'armure du jouer
+     * @param pArmor armure
+     */
     public void setArmor(final Armor pArmor)
     {
         this.aArmor = pArmor;
     }
+    /**
+     * @return statistique d'armure du joueur
+     */
     public int getRes()
     {
         return this.aArmor.getRes();
     }
-    
+    /**
+     * @return arme et armure du joueur sous forme de texte
+     */
     public String getEquipment()
     {
         return "Votre arme est : " + this.aArme.toString() + "\n" + "Votre armure est : " + this.aArmor.toString() ;
+    }
+    /**
+     * Calcule et affiche la vie du joueur, ainsi que sa mort potentielle
+     */
+    public void status()
+    {
+        if(this.aHP > 0.0)
+           this.aGui.println("Vous avez " + this.aHP +" pv.");
+        else
+            {
+            this.aGui.println("Vous êtes mort.");  
+            this.aGui.showImage("./Images/Mort.jpg");
+            this.aGui.enable(false);
+            }
+        
     }
 }
