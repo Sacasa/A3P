@@ -1,26 +1,41 @@
-go ouest
-take lemba
-eat lemba
-go bas
-go haut
-go ouest
-eat
-look
-take ragnarok
-eat ragnarok
-take t
-drop t
-drop ragnarok
+talk Messager
 go est
 go sud
-attack
+go ouest
+take beamer
+charge
 go bas
-go nord
+go ouest
+take Ragnarok
+equip Ragnarok
+go est
 go sud
-alea 2
+alea 5
 go est
 go nord
 go sud
+go sud
+go bas
+go sud
+go est
+take cotte
+equip cotte
+go ouest
+go ouest
+go est
+take elixir
+eat elixir
+go sud
+go est
+attack Fenrir
+talk Fenrir
+go ouest
 go bas
 go nord
-
+wait
+attack Bahamut
+fire
+go est
+go nord
+go est
+talk Roi

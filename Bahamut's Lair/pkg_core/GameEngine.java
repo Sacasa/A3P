@@ -330,15 +330,6 @@ public class GameEngine
     }
 
     /**
-     * Permet de se suicider
-     */
-    private void harakiri()
-    {
-        aGui.println("En ayant marre de votre aventure,\nvous décidez de mourrir honorablement et de réaliser un HARAKIRI");
-        this.mort();
-    }//harakiri
-
-    /**
      * retourne la pile de rooms
      * @return pile de rooms
      * 

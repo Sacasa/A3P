@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=QuitCommand
+comment0.text=\r\n\ Commande\ permettant\ de\ quitter\ le\ jeu.\r\n\ @author\ Quentin\ GARRIDO\r\n\ @version\ 1.0\r\n
+comment1.params=pCommandWords
+comment1.target=QuitCommand(CommandWords)
+comment1.text=\r\n\ Constructeur\ de\ la\ classe\ QuitCommand\r\n\ @param\ pCommandWords\ mot\ de\ commande\ associ\u00E9\r\n
+comment2.params=pGameEngine
+comment2.target=void\ execute(pkg_core.GameEngine)
+comment2.text=\ \r\n\ Permet\ de\ quitter\ le\ jeu\r\n\ @param\ pGameEngine\ GameEngine\ qui\ \u00E9x\u00E9cutera\ la\ commande\r\n
+numComments=3

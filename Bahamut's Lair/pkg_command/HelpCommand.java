@@ -28,6 +28,6 @@ public class HelpCommand extends Command
     public void execute(final GameEngine pGameEngine)
     {
         pGameEngine.getGUI().println("Vous êtes seul et perdu. \nVous vous trouvez dans la montagne sacrée du Bahamut.\n");
-        pGameEngine.getGUI().println("Your command words are : " + this.aCommandWords.getCommandList() + "\n");
+        pGameEngine.getGUI().println("Vos commandes sont : \n" + this.aCommandWords.getCommandList() + "\n");
     }//execute
 }
