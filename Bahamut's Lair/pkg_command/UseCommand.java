@@ -42,7 +42,7 @@ public class UseCommand extends Command
         else if(vName.equals("fiole") && pGameEngine.getPlayer().getCurrentRoom() == vRoomList.get(2))
         {
             //Victoire
-            pGameEngine.getGUI().println("Vous apercevez le Roi se sentir mieux, comme par magie. Il vous remercie mille fois de l'avoir sauvé.\n Vous partez célébrer son rétablissementautour d'un festin digne des rois !");
+            pGameEngine.getGUI().println("Vous apercevez le Roi se sentir mieux, comme par magie. Il vous remercie mille fois de l'avoir sauvé.\nVous partez célébrer son rétablissementautour d'un festin digne des rois !");
             pGameEngine.getGUI().println("Bravo à vous ! Vous avez triomphé de Bahamut's Lair!!!");
             pGameEngine.getGUI().showImage("Images/victoire.jpg");
             pGameEngine.getGUI().enable(false);

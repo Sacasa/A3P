@@ -37,6 +37,7 @@ public class WaitCommand extends Command
         else
         {        
             pGameEngine.getBahamut().setCurrentRoom(vRoomList.get(16));
+            vRoomList.get(16).getNPCList().put(pGameEngine.getBahamut().getName(),pGameEngine.getBahamut() );
             pGameEngine.getPlayer().changeRoom(pGameEngine.getPlayer().getCurrentRoom());
             pGameEngine.isBahamutIn();
         }
