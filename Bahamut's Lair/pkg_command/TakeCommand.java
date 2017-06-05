@@ -3,10 +3,10 @@ import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
 import pkg_mechanics.Arme;
 /**
- * Write a description of class TakeCommand here.
+ * Commande permettant de prendre un objet de la salle
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class TakeCommand extends Command
 {

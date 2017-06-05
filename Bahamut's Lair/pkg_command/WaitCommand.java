@@ -1,11 +1,13 @@
 package pkg_command;
 import pkg_core.GameEngine;
+import java.util.ArrayList;
+import pkg_mechanics.Room;
 
 /**
- * Write a description of class HelpCommand here.
+ * Commande permettant d'attendre ( surtout pour le bahamut)
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class WaitCommand extends Command 
 {
@@ -21,18 +23,20 @@ public class WaitCommand extends Command
     }//Constructeur()
     /** 
      * permet de faire passer un "tour", ce qui sert à faire bouger les pnj sans rien faire d'autre majoritairement
+     * Mais mettra aussi le bahamut dans la salle 16(cf plan)
      * @param pGameEngine GameEngine qui éxécutera la commande
      */
     @Override
     public void execute(final GameEngine pGameEngine)
     {
+        ArrayList<Room> vRoomList = pGameEngine.getRoomList();
         if(super.hasSecondWord())
         {
             pGameEngine.getGUI().println("Attendre quoi ?");            
         }
         else
         {        
-            pGameEngine.getBahamut().move();
+            pGameEngine.getBahamut().setCurrentRoom(vRoomList.get(16));
             pGameEngine.getPlayer().changeRoom(pGameEngine.getPlayer().getCurrentRoom());
             pGameEngine.isBahamutIn();
         }

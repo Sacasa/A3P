@@ -4,10 +4,10 @@ import pkg_mechanics.Beamer;
 
 
 /**
- * Write a description of class ChargeCommand here.
+ * Commande permettant de charger le beamer
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class ChargeCommand extends Command
 {

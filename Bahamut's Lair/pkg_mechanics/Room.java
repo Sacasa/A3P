@@ -153,17 +153,28 @@ public class Room
         this.aItems.removeItem(pN);
     }
 
+    /**
+     * Ajoute un NPC dans la pièce
+     * @param pNPC NPC à ajouter
+     */
     public void addNPC(final NPC pNPC )
     {
         this.aNPCList.put(pNPC.getName(),pNPC);
 
     }
 
+    /**
+     * Enleve un NPC de la pièce
+     * @param pName nom du NPC
+     */
     public void removeNPC(final String pName)
     {
         this.aNPCList.remove(pName);
     }
 
+    /**
+     * @return  liste des NPC présents dans la pièce
+     */
     public String getNPCString()
     {
         String vReturnString = "Les personnages présents sont:";
@@ -177,6 +188,10 @@ public class Room
 
     }
 
+    /**
+     * @param nom du NPC
+     * @return dialogue du NPC 
+     */
     public String getNPCDialogue(final String pNPC)
     {     
 
@@ -184,11 +199,18 @@ public class Room
 
     }
 
+    /**
+     * @return Hashmap des NPC
+     */
     public HashMap<String, NPC> getNPCList()
     {
         return this.aNPCList;
     }
-    
+
+    /**
+     * @param pN nom du NPC
+     * @return NPC associé à ce nom dans la pièce
+     */
     public NPC getNPC(final String pN)
     {
         return this.aNPCList.get(pN);

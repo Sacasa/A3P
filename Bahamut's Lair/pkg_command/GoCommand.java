@@ -4,10 +4,10 @@ import pkg_mechanics.Room;
 
 import java.util.ArrayList;
 /**
- * Write a description of class GoCommand here.
+ * Commande permettant de changer de salles
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class GoCommand extends Command
 {
@@ -48,7 +48,7 @@ public class GoCommand extends Command
             /*pGameEngine.getGUI().println(pGameEngine.getPlayer().getCurrentRoom().toString() + " | " + vTempRoomList.get(1).toString());
             pGameEngine.getGUI().println(vNextRoom + " | " + vTempRoomList.get(2));*/
             pGameEngine.oneMove(pGameEngine.getPlayer().getCurrentRoom());
-            if(vTempRoomList.get(1) == pGameEngine.getPlayer().getCurrentRoom() && vTempRoomList.get(2) == vNextRoom)
+            if(vTempRoomList.get(4) == pGameEngine.getPlayer().getCurrentRoom() && vTempRoomList.get(5) == vNextRoom)
                 pGameEngine.clearStack();
                 
             pGameEngine.getPlayer().changeRoom(vNextRoom);   

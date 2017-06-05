@@ -48,6 +48,7 @@ public class CommandWords
         this.aCommandes.put(CommandWord.TALK, new TalkCommand(this));
         this.aCommandes.put(CommandWord.WAIT, new WaitCommand(this));
         this.aCommandes.put(CommandWord.EQUIP, new EquipCommand(this));
+        this.aCommandes.put(CommandWord.USE, new UseCommand(this));
     } // CommandWords()
     
     /**

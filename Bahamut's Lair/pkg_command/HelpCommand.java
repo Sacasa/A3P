@@ -3,10 +3,10 @@ import pkg_core.GameEngine;
 
 
 /**
- * Write a description of class HelpCommand here.
+ * Commande permettant d'afficher l'aide
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class HelpCommand extends Command 
 {

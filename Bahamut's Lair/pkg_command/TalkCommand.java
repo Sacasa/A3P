@@ -3,10 +3,10 @@ import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
 
 /**
- * Write a description of class eatCommand here.
+ * Commande permettant de parler à un npc
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class TalkCommand extends Command
 {

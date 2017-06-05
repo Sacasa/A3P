@@ -3,10 +3,10 @@ import pkg_core.GameEngine;
 import pkg_mechanics.Room;
 import java.util.Stack;
 /**
- * Write a description of class BackCommand here.
+ * Commande permettant de revenir une salle en arrière
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class BackCommand extends Command
 {

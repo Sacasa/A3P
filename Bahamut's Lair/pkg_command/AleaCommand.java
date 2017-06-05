@@ -5,10 +5,10 @@ import pkg_mechanics.TransporterRoom;
 
 import java.util.ArrayList;
 /**
- * Write a description of class AleaCommand here.
+ * Commande permettant de bloquer l'aléatoire ou non
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class AleaCommand extends Command
 {
@@ -32,7 +32,7 @@ public class AleaCommand extends Command
     {
         ArrayList<Room> vRoomList = pGameEngine.getRoomList();
         if(pGameEngine.getTestMode()){
-            TransporterRoom vTemp = (TransporterRoom)vRoomList.get(7);
+            TransporterRoom vTemp = (TransporterRoom)vRoomList.get(8);
             if(super.hasSecondWord())
             {
                 try{

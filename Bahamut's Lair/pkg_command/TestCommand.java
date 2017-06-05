@@ -5,10 +5,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 /**
- * Write a description of class TestCommand here.
+ * Commande permettant de tester avec un fichier texte
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class TestCommand extends Command
 {

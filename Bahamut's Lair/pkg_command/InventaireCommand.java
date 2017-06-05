@@ -5,10 +5,10 @@ import pkg_mechanics.Arme;
 import pkg_mechanics.Armor;
 
 /**
- * Write a description of class InventaireCommand here.
+ * Commande permettant d'afficher l'inventaire
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class InventaireCommand extends Command
 {

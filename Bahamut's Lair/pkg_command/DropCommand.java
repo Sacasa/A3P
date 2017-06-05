@@ -4,10 +4,10 @@ import pkg_mechanics.ItemList;
 import pkg_mechanics.Arme;
 import pkg_mechanics.Armor;
 /**
- * Write a description of class DropCommand here.
+ * Commande permettant de déposer un objet dans la pièce
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class DropCommand extends Command
 {

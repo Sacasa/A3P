@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BackCommand
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ BackCommand\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Commande\ permettant\ de\ revenir\ une\ salle\ en\ arri\u00E8re\r\n\r\n\ @author\ Quentin\ GARRIDO\r\n\ @version\ 1.0\r\n
 comment1.params=pCommandWords
 comment1.target=BackCommand(CommandWords)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ BackCommand\r\n\ @param\ pCommandWords\ mot\ de\ commande\ associ\u00E9\r\n

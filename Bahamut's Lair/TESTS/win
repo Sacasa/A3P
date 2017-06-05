@@ -1,6 +1,30 @@
+go est
+go sud
 go ouest
+take beamer
+charge
 go bas
+go ouest
+take ragnarok
+equip ragnarok
+go est
+go sud
+go bas
+go sud
+go est
+take cotte
+equip cotte
+go ouest
 go sud
 go bas
 go nord
-attack
+wait
+attack Bahamut
+attack Bahamut
+attack Bahamut
+take fiole
+fire
+go est
+go nord
+go est
+use fiole

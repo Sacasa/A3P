@@ -4,10 +4,10 @@ import pkg_mechanics.ItemList;
 import pkg_mechanics.Arme;
 import pkg_mechanics.Armor;
 /**
- * Write a description of class TakeCommand here.
+ * Commande permettant d'équiper un objet
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class EquipCommand extends Command
 {

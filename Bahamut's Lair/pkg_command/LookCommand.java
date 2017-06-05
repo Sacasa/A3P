@@ -2,10 +2,10 @@ package pkg_command;
 import pkg_core.GameEngine;
 
 /**
- * Write a description of class HelpCommand here.
+ * Commande permettant de regarder dans las pièce
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class LookCommand extends Command 
 {

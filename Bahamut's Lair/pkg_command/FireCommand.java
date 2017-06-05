@@ -3,10 +3,10 @@ import pkg_core.GameEngine;
 import pkg_mechanics.Beamer;
 
 /**
- * Write a description of class FireCommand here.
+ * Commande permettant de tirer avec le beamer
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class FireCommand extends Command
 {

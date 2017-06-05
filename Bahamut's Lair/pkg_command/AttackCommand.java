@@ -5,10 +5,10 @@ import pkg_mechanics.NPC;
 
 import java.util.ArrayList;
 /**
- * Write a description of class AttackCommand here.
+ * Commande permettant d'attaquer un npc
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Quentin GARRIDO
+ * @version 1.0
  */
 public class AttackCommand extends Command
 {
@@ -37,13 +37,12 @@ public class AttackCommand extends Command
         }
         else if((!pGameEngine.getPlayer().getCurrentRoom().getNPC(super.getSecondWord()).getKillable()))
         {
-            pGameEngine.getGUI().println(pGameEngine.getPlayer().getCurrentRoom().getNPC(super.getSecondWord()).getName() +" esquive votre attaque.");
+            pGameEngine.getGUI().println("Vous attaquez et ratez " + pGameEngine.getPlayer().getCurrentRoom().getNPC(super.getSecondWord()).getName() +".");
 
         }
         else
         {
             NPC vNPC = pGameEngine.getPlayer().getCurrentRoom().getNPC(super.getSecondWord());
-            System.out.println(vNPC.getHP() + " "+pGameEngine.getPlayer().getCurrentRoom().getNPC(super.getSecondWord()).getHP());
             double vPDegats = pGameEngine.getPlayer().getDegats() * (100-vNPC.getArmure())/100.0;
             vPDegats = Math.round(vPDegats*100)/100;
             double vNPCDegats = vNPC.getDegats() * (100 - pGameEngine.getPlayer().getRes())/100.0;
