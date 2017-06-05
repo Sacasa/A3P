@@ -4,7 +4,7 @@
  *  can walk around some scenery. That's all. It should really be extended 
  *  to make it more interesting!
  * 
- *  To play this game, create an instance of this class.
+ *  To play this game, call the method main.
  * 
  *  This main class creates the necessary implementation objects and starts the game off.
  * 

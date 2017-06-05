@@ -14,6 +14,7 @@ import java.util.Set;
 public class Player
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
+    private final double aMAX_HP;
     private String aNom;
     private Room aCurrentRoom;
     private int aMaxWeight;
@@ -40,8 +41,17 @@ public class Player
         this.aArme = new Arme();
         this.aArmor = new Armor();
         this.aHP = 20.0;
+        this.aMAX_HP = 20.0;
     }//player
-
+    
+    /**
+     * @return vie max du player
+     */
+    public double getMaxHP()
+    {
+        return this.aMAX_HP;
+    }
+    
     /**
      * ajoute du poids au maximum du joueur
      * @param pI poids à ajouter(ou enlever)
@@ -61,9 +71,16 @@ public class Player
         return this.aMaxWeight;
     }
     
+    /**
+     * permet d'ajouter/enlever de la vie au joueur
+     * @param pHP quantité a ajouter/enlever
+     */
     public void addHP(final double pHP)
     {
-        this.aHP += pHP;
+        if(this.aHP + pHP > this.aMAX_HP)
+            this.aHP = aMAX_HP;
+        else 
+            this.aHP += pHP;
     }
     
     /**
@@ -202,5 +219,12 @@ public class Player
             this.aGui.enable(false);
             }
         
+    }
+    /**
+     * @return vie du joueur
+     */
+    public double getHP()
+    {
+        return this.aHP;
     }
 }

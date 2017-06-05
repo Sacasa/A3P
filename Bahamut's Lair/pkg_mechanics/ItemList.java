@@ -44,7 +44,7 @@ public class ItemList
 
     /**
      * Enleve un objet dans la pièce
-     * @param pI objet en question
+     * @param pN nom de l'objet en question
      */
     public void removeItem(final String pN)
     {

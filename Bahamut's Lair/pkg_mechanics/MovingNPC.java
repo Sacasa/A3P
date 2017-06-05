@@ -18,7 +18,7 @@ public class MovingNPC extends NPC
      * @param pD liste des dialogues du personnage
      * @param pN Nom du personnage
      * @param pAR Liste de salles où se déplacer
-     * @param pR Piece initiale(non aléatoire)
+     * @param pCR Piece initiale(non aléatoire)
      */
     public MovingNPC(final ArrayList<String> pD, final String pN,final double pHP, final int pDegats, final int pArmure, final boolean pK, final Item pLoot, final Room pCR, final ArrayList<Room> pAR)
     {

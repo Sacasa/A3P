@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Food
+comment0.text=\r\n\ Repr\u00E9sente\ la\ nourriture\ provoquant\ de\ soins\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=pN\ pD\ pW\ pNb\ pHeal
+comment1.target=Food(java.lang.String,\ java.lang.String,\ int,\ int,\ int)
+comment1.text=\r\n\ Initialise\ les\ attributs\ d'un\ objet\ Food\r\n\ @param\ pN\ Nom\ de\ l'aliment\r\n\ @param\ pD\ Description\r\n\ @param\ pW\ Poids\ de\ l'objet\r\n\ @param\ pNb\ nombre\ d'utilisations\ de\ l'objet\r\n\ @param\ pHeal\ quantit\u00E9\ de\ soin\ procur\u00E9\ par\ l'objet\r\n
+comment2.params=
+comment2.target=java.lang.String\ getItemInformation()
+comment2.text=\r\n\ Retourne\ la\ description\ de\ l'objet\r\n\ @return\ description\ +\ poids\r\n
+comment3.params=
+comment3.target=java.lang.String\ eat()
+comment3.text=\r\n\ effet\ en\ mangeant\ un\ objet\ food\r\n
+numComments=4

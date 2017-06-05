@@ -16,7 +16,7 @@ public class TransporterRoom extends Room
      * Constructor for objects of class TransporterRoom
      * @param pD Description de la pièce
      * @param pI image de la pièce
-     * @pR Liste de pièces aléatoires dans lesquelles choisir
+     * @param pR Liste de pièces aléatoires dans lesquelles choisir
      */
     public TransporterRoom(final String pD, final String pI, final ArrayList<Room> pR)
     {

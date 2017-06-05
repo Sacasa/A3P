@@ -18,10 +18,10 @@ public class AleaCommand extends Command
      * Constructeur de la classe AleaCommand
      * @param pCommandWords mot de commande associé
      */
-    public AleaCommand(final CommandWords superWords)
+    public AleaCommand(final CommandWords pCommandWords)
     {
         super(null);
-        this.aCommandWords = superWords;
+        this.aCommandWords = pCommandWords;
     }//Constructeur()
     /** 
      * permet de bloquer l'aléatoire des transporter room ou de le réactiver

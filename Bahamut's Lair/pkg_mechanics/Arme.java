@@ -16,7 +16,7 @@ public class Arme extends Item
      * @param pN    Nom de l'arme
      * @param pDesc Description de l'arme
      * @param pW    poids de l'arme
-     * @param pRes resistance de l'arme 
+     * @param pDegats degats de l'arme 
      */
     public Arme(final String pN,final String pDesc, final int pW, final int pDegats)
     {

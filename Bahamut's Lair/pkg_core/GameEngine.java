@@ -11,6 +11,7 @@ import pkg_mechanics.NPC;
 import pkg_mechanics.MovingNPC;
 import pkg_mechanics.Arme;
 import pkg_mechanics.Armor;
+import pkg_mechanics.Food;
 
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class GameEngine
     {
         //Dialogues
         ArrayList<String> vDialogueMsg = new ArrayList<String>();
-        vDialogueMsg.add("Vous voici enfin Luneth ! \n Le Roi est mourrant et a besoin de votre aide.\n Seul le sang du Bahmaut peut le sauver et vous êtes notre seul espoir.\n La montagne est accessible en partant de la cour.\n Je suis désolé mais nous n'avons aucune armure ni arme poour vous, vous devrez vous équiper sur le chemin.");
+        vDialogueMsg.add("Vous voici enfin Luneth ! \n Le Roi est mourrant et a besoin de votre aide.\n Seul le sang du Bahmaut peut le sauver et vous êtes notre seul espoir.\n La montagne est accessible en partant de la cour.\n Je suis désolé mais nous n'avons aucune armure ni arme pour vous, vous devrez vous équiper sur le chemin.");
         vDialogueMsg.add("Attention aux Gobelins sur la route !");
         vDialogueMsg.add("Vite ! Allez y, l'avenir du Roi est entre vos mains !");
         vDialogueMsg.add("Que faîtes vous encore ici ?!");        
@@ -145,6 +146,7 @@ public class GameEngine
         
         //Chateau
         Room vTrone = new Room("dans la salle du trône, où le messager du Roi veut vous parler.","Images/trone.jpg");
+        vTrone.addItem( new Food("potion"," potion(s) de vie ",2,3,5));
         vTrone.addNPC(new NPC(vDialogueMsg,"Messager",vTrone));
         Room vCour = new Room("dans la cour du Château.","Images/cour.jpg");
         Room vChambre = new Room("dans la chambre du Roi, il est dans son lit, mourrant","Images/roi.jpg");
@@ -154,7 +156,7 @@ public class GameEngine
 
         Room vEntreeH = new Room("face à l'entrée de l'antre du Bahamut","Images/EntreeH.jpg"); 
         vEntreeH.addNPC(new NPC(vDialogueNain, "Gimli",vEntreeH));
-        vEntreeH.addItem(new Item("lemba", "un lemba, pain magiue elfique", 1, true));
+        vEntreeH.addItem(new Item("lemba", "un lemba, pain magique elfique", 1, true));
         vEntreeH.addItem(new Beamer());
         Room vSommetEst = new Room("sur le flanc est de la montagne.","Images/Montagne.jpg");
         vSommetEst.addItem(new Item("torche","une torche pour vous éclairer dans ce donjon",1, false));
@@ -163,7 +165,7 @@ public class GameEngine
 
         Room vEntreeB = new Room("dans l'entrée de l'antre, l'escalier pour sortir s'est refermé, vous ne pouvez plus partir désormais.","Images/EntreeB.jpg");
         Room vRagnarok = new Room("dans la salle ou se trouve Ragnarok, la lance légendaire","Images/Ragnarok.jpg");
-        vRagnarok.addItem(new Arme("ragnarok","Ragnarok, lance légendaire",5,20));
+        vRagnarok.addItem(new Arme("Ragnarok","Ragnarok, lance légendaire",5,20));
         vRagnarok.addItem(new Item("casque","Le casque ayant appartenu au derneir gardien de ces lieux", 1, false));
         Room vEscalierH = new Room("en haut de l'escalier principal de l'antre","Images/Mine.jpg");
         //TransporterRoom ici
@@ -172,13 +174,15 @@ public class GameEngine
         
         Room vEscalierPrincipalBas= new Room("en bas de l'escalier princpial de l'antre.","Images/escalierpb.jpg");;
         Room vVide = new Room("dans une salle vide sans intérêt","Images/vide.jpg");
+        vVide.addItem( new Food("elixir"," élixir(s) mystérieu(x) ",2,3,-10));
         Room vAventurier = new Room("dans une salle où gît un cadavre","Images/aventurier.jpg");
         vAventurier.addNPC(new NPC(vDialogueCadavre,"aventurier",vAventurier));
         Room vForge = new Room("dans une ancienne forge naine","Images/forge.jpg");
+        vForge.addItem(new Arme("épée"," une épée rouillée",5,5));
         vForge.addItem(new Armor("cotte", " une cotte de maille en mithril", 5, 40));
         Room vEscalier2H = new Room("en haut de l'escalier menant au Bahamut","Images/escalier2h.jpg");      
         Room vFenrir = new Room("dans la pièce ou vous apercevez un loup au fond","Images/fenrir.jpg");
-        NPC vFenrirNPC = new NPC(vDialogueFenrir, "Fenrir",50,10,10,true,new Arme("Excalibur", "Excalibur, la meilleur épée jamais forgée",20,666),vFenrir);
+        NPC vFenrirNPC = new NPC(vDialogueFenrir, "Fenrir",50,10,10,true,new Arme("Excalibur", "Excalibur, la meilleur épée jamais forgée",20,70),vFenrir);
         vFenrir.addNPC(vFenrirNPC);
         
         //Etage 3
@@ -238,6 +242,10 @@ public class GameEngine
         vBahamutN.setExit("sud", vBahamut1);
         vBahamutN.setExit("est", vBahamutHD);
         vBahamutN.setExit("ouest", vBahamutHG);
+        vBahamutHG.setExit("est",vBahamutN);
+        vBahamutHG.setExit("sud",vBahamutG);
+        vBahamutHD.setExit("ouest",vBahamutN);
+        vBahamutHD.setExit("sud",vBahamutD);
         
         
         //TransporterRoom
@@ -353,7 +361,7 @@ public class GameEngine
      * Given a command, process (that is: execute) the command.
      * If this command ends the game, true is returned, otherwise false is
      * returned.
-     * @param pCommandLine commande à interpréter
+     * @param pCommand commande à interpréter
      */
     public void interpretCommand(final Command pCommand) 
     {

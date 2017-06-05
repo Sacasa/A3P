@@ -36,7 +36,7 @@ public class InventaireCommand extends Command
             pGameEngine.getGUI().println("Votre inventaire est vide"+ "\n" + pGameEngine.getPlayer().getEquipment());
         else
         {
-            String vString = "Dans voter inventaire se trouvent : "+ vInventory.toString() + " pour un poids total de " + pGameEngine.getPlayer().getCurrentWeight()+ "\n" + pGameEngine.getPlayer().getEquipment();
+            String vString = "Dans votre inventaire se trouvent : "+ vInventory.toString() + " pour un poids total de " + pGameEngine.getPlayer().getCurrentWeight()+ "\n" + pGameEngine.getPlayer().getEquipment();
             pGameEngine.getGUI().println(vString);
         }
     }//execute

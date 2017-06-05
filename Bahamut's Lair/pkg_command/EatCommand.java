@@ -1,6 +1,7 @@
 package pkg_command;
 import pkg_core.GameEngine;
 import pkg_mechanics.ItemList;
+import pkg_mechanics.Food;
 
 /**
  * Commande permettant de manger
@@ -47,7 +48,13 @@ public class EatCommand extends Command
                     pGameEngine.getPlayer().addCurrentWeight( -vInventory.getItem(vName).getWeight());
                     vInventory.removeItem(vName);
                 }
-
+                else 
+                {
+                    Food vFood = (Food)vInventory.getItem(vName);
+                    pGameEngine.getGUI().println(vFood.eat());
+                    pGameEngine.getPlayer().status();
+                }
+                
             }
         }
     }//execute

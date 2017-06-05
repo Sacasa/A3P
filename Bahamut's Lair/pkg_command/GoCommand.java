@@ -41,7 +41,7 @@ public class GoCommand extends Command
 
         if (vNextRoom == null)
         {
-            pGameEngine.getGUI().println("Il n'y à rien dans cette direction ;)");
+            pGameEngine.getGUI().println("Il n'y a rien dans cette direction ;)");
         }
         else {
             ArrayList<Room> vTempRoomList = pGameEngine.getRoomList();

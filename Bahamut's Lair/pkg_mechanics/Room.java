@@ -146,7 +146,7 @@ public class Room
 
     /**
      * Enleve un objet dans la pièce
-     * @param pI objet en question
+     * @param pN nom de l'objet en question
      */
     public void removeItem(final String pN)
     {
@@ -189,7 +189,7 @@ public class Room
     }
 
     /**
-     * @param nom du NPC
+     * @param pNPC nom du NPC
      * @return dialogue du NPC 
      */
     public String getNPCDialogue(final String pNPC)

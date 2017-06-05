@@ -25,7 +25,7 @@ public class NPC
      * @param pN nom du personnage
      * @param pHP vie du personnage
      * @param pDegats degats du personnage
-     * @param pARmure armure du personnage
+     * @param pArmure armure du personnage
      * @param pK capacité de tuer ce personnage
      * @param pLoot objet que fait tomber le personnage à sa mort
      * @param pCR pièce du personnage

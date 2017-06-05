@@ -1,10 +1,8 @@
 #BlueJ class context
-comment0.target=AleaCommand
-comment0.text=\r\n\ Commande\ permettant\ de\ bloquer\ l'al\u00E9atoire\ ou\ non\r\n\r\n\ @author\ Quentin\ GARRIDO\r\n\ @version\ 1.0\r\n
-comment1.params=superWords
-comment1.target=AleaCommand(CommandWords)
-comment1.text=\r\n\ Constructeur\ de\ la\ classe\ AleaCommand\r\n\ @param\ pCommandWords\ mot\ de\ commande\ associ\u00E9\r\n
-comment2.params=pGameEngine
-comment2.target=void\ execute(pkg_core.GameEngine)
-comment2.text=\ \r\n\ permet\ de\ bloquer\ l'al\u00E9atoire\ des\ transporter\ room\ ou\ de\ le\ r\u00E9activer\r\n\ @param\ pGameEngine\ GameEngine\ qui\ \u00E9x\u00E9cutera\ la\ commande\r\n
-numComments=3
+comment0.params=pCommandWords
+comment0.target=AleaCommand(CommandWords)
+comment0.text=\n\ Constructeur\ de\ la\ classe\ AleaCommand\n\ @param\ pCommandWords\ mot\ de\ commande\ associ\u00E9\n
+comment1.params=pGameEngine
+comment1.target=void\ execute(pkg_core.GameEngine)
+comment1.text=\ \n\ permet\ de\ bloquer\ l'al\u00E9atoire\ des\ transporter\ room\ ou\ de\ le\ r\u00E9activer\n\ @param\ pGameEngine\ GameEngine\ qui\ \u00E9x\u00E9cutera\ la\ commande\n
+numComments=2

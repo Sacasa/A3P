@@ -9,8 +9,8 @@ package pkg_command;
  * This class holds an enumeration table of all command words known to the game.
  * It is used to recognise commands as they are typed in.
  *
- * @author  Michael Kolling and David J. Barnes + D.Bureau
- * @version 2008.03.30 + 2013.09.15
+ * @author  Michael Kolling and David J. Barnes + D.Bureau + Quentin Garrido
+ * @version 2008.03.30 + 2013.09.15 + 2017.05.28
  */
 public class CommandWords
 {
@@ -24,14 +24,13 @@ public class CommandWords
     public CommandWords()
     {
         this.aValidCommands = new HashMap<String, CommandWord>();
-        this.aCommandes = new HashMap<CommandWord, Command>();
         for(CommandWord command : CommandWord.values()) {
             if(command != CommandWord.UNKNOWN) {
                 aValidCommands.put(command.toString(), command);
             }
         }
         
-        
+        this.aCommandes = new HashMap<CommandWord, Command>();
         this.aCommandes.put(CommandWord.HELP, new HelpCommand(this));
         this.aCommandes.put(CommandWord.LOOK, new LookCommand(this));
         this.aCommandes.put(CommandWord.GO, new GoCommand(this));

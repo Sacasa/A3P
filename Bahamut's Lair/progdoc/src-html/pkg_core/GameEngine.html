@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="fr">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span><a name="line.1"></a>
+<span class="sourceLineNo">002</span>package pkg_core;<a name="line.2"></a>
+<span class="sourceLineNo">003</span>import pkg_mechanics.Player;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import pkg_mechanics.Parser;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import pkg_mechanics.Room;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import pkg_mechanics.TransporterRoom;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import pkg_mechanics.Beamer;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import pkg_mechanics.Item;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import pkg_command.Command;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import pkg_mechanics.NPC;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import pkg_mechanics.MovingNPC;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import pkg_mechanics.Arme;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import pkg_mechanics.Armor;<a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.Iterator;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import java.util.ArrayList;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import java.util.Stack;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import java.util.Scanner;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import java.io.File;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.io.FileNotFoundException;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>/**<a name="line.21"></a>
+<span class="sourceLineNo">022</span> *  This class is part of the "World of Zuul" application. <a name="line.22"></a>
+<span class="sourceLineNo">023</span> *  "World of Zuul" is a very simple, text based adventure game.<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * <a name="line.24"></a>
+<span class="sourceLineNo">025</span> *  This class creates all rooms, creates the parser and starts<a name="line.25"></a>
+<span class="sourceLineNo">026</span> *  the game.  It also evaluates and executes the commands that <a name="line.26"></a>
+<span class="sourceLineNo">027</span> *  the parser returns.<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * <a name="line.28"></a>
+<span class="sourceLineNo">029</span> * @author  Quentin GARRIDO<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * @version 1.0 (June 2017)<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>public class GameEngine<a name="line.32"></a>
+<span class="sourceLineNo">033</span>{<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    private Parser aParser; <a name="line.34"></a>
+<span class="sourceLineNo">035</span>    private UserInterface aGui;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    private ArrayList&lt;Room&gt; aRoomList;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>    private Stack&lt;Room&gt; aRoomStack;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>    private Player aPlayer;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    private int aNbMoves;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    private static final int MAX_MOVES = 50;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    private boolean aTestMode ;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>    private MovingNPC aBahamut;<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>    /**<a name="line.44"></a>
+<span class="sourceLineNo">045</span>     * Constructor for objects of class GameEngine<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     */<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    public GameEngine()<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        this.aParser = new Parser();<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        this.aRoomList = new ArrayList&lt;Room&gt;(7);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        this.aRoomStack = new Stack&lt;Room&gt;();<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        createRooms();<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        this.aPlayer = new Player("Quentin",50,this.aRoomList.get(0));<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        this.aTestMode = true;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    }//GameEngine<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>    /**<a name="line.57"></a>
+<span class="sourceLineNo">058</span>     * Définit le GUI<a name="line.58"></a>
+<span class="sourceLineNo">059</span>     * @param pUserInterface UserInterface<a name="line.59"></a>
+<span class="sourceLineNo">060</span>     */<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    public void setGUI(final UserInterface pUserInterface)<a name="line.61"></a>
+<span class="sourceLineNo">062</span>    {<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        this.aGui =  pUserInterface;<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        this.aPlayer.setGui(aGui);<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        printWelcome();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    }//setGui<a name="line.66"></a>
+<span class="sourceLineNo">067</span><a name="line.67"></a>
+<span class="sourceLineNo">068</span>    /**<a name="line.68"></a>
+<span class="sourceLineNo">069</span>     * retourne l'IHM<a name="line.69"></a>
+<span class="sourceLineNo">070</span>     * @return l'interface graphique<a name="line.70"></a>
+<span class="sourceLineNo">071</span>     */<a name="line.71"></a>
+<span class="sourceLineNo">072</span>    public UserInterface getGUI()<a name="line.72"></a>
+<span class="sourceLineNo">073</span>    {<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        return this.aGui;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>    }<a name="line.75"></a>
+<span class="sourceLineNo">076</span><a name="line.76"></a>
+<span class="sourceLineNo">077</span>    /**<a name="line.77"></a>
+<span class="sourceLineNo">078</span>     * retourne le player<a name="line.78"></a>
+<span class="sourceLineNo">079</span>     * @return le player<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     */<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    public Player getPlayer()<a name="line.81"></a>
+<span class="sourceLineNo">082</span>    {<a name="line.82"></a>
+<span class="sourceLineNo">083</span>        return this.aPlayer;<a name="line.83"></a>
+<span class="sourceLineNo">084</span><a name="line.84"></a>
+<span class="sourceLineNo">085</span>    }<a name="line.85"></a>
+<span class="sourceLineNo">086</span><a name="line.86"></a>
+<span class="sourceLineNo">087</span>    /** <a name="line.87"></a>
+<span class="sourceLineNo">088</span>     * Afiche le lieu actuel ainsi que les différentes sorties<a name="line.88"></a>
+<span class="sourceLineNo">089</span>     * <a name="line.89"></a>
+<span class="sourceLineNo">090</span>     */<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    public void printLocation()<a name="line.91"></a>
+<span class="sourceLineNo">092</span>    {<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        aGui.println(this.aPlayer.getCurrentRoom().getLongDescription()   );   <a name="line.93"></a>
+<span class="sourceLineNo">094</span>    }//printlocation<a name="line.94"></a>
+<span class="sourceLineNo">095</span><a name="line.95"></a>
+<span class="sourceLineNo">096</span>    /**<a name="line.96"></a>
+<span class="sourceLineNo">097</span>     * Print out the opening message for the player.<a name="line.97"></a>
+<span class="sourceLineNo">098</span>     */<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    private void printWelcome()<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    {<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        aGui.println("Bienvenue dans Bahamut's Lair !\n le Roi est très malade et dans " + this.MAX_MOVES + " déplacements il décedera!" +"\nTapez 'help' si vous avez besoin d'aide.\n\n"); <a name="line.101"></a>
+<span class="sourceLineNo">102</span>        this.printLocation();<a name="line.102"></a>
+<span class="sourceLineNo">103</span>        aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    }//printWelcome<a name="line.104"></a>
+<span class="sourceLineNo">105</span><a name="line.105"></a>
+<span class="sourceLineNo">106</span>    /**<a name="line.106"></a>
+<span class="sourceLineNo">107</span>     * Create all the rooms and link their exits together.<a name="line.107"></a>
+<span class="sourceLineNo">108</span>     */<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    private void createRooms()<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        //Dialogues<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        ArrayList&lt;String&gt; vDialogueMsg = new ArrayList&lt;String&gt;();<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        vDialogueMsg.add("Vous voici enfin Luneth ! \n Le Roi est mourrant et a besoin de votre aide.\n Seul le sang du Bahmaut peut le sauver et vous êtes notre seul espoir.\n La montagne est accessible en partant de la cour.\n Je suis désolé mais nous n'avons aucune armure ni arme poour vous, vous devrez vous équiper sur le chemin.");<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        vDialogueMsg.add("Attention aux Gobelins sur la route !");<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        vDialogueMsg.add("Vite ! Allez y, l'avenir du Roi est entre vos mains !");<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        vDialogueMsg.add("Que faîtes vous encore ici ?!");        <a name="line.116"></a>
+<span class="sourceLineNo">117</span>        <a name="line.117"></a>
+<span class="sourceLineNo">118</span>        ArrayList&lt;String&gt; vDialogueRoi = new ArrayList&lt;String&gt;();<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        vDialogueRoi.add("Arghhhh *tousse du sang* personne ici ne peut me soigner ?....");<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        vDialogueRoi.add("Luneth, qu'avez vous à me dire ?");<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        vDialogueRoi.add("Aidez moi *tousse* je vous en conjure *tousse* ");<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        vDialogueRoi.add("je ne peut mourrir dans de telles circonstances *du sang sort de ses oreilles*");<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        <a name="line.123"></a>
+<span class="sourceLineNo">124</span>        ArrayList&lt;String&gt; vDialogueNain = new ArrayList&lt;String&gt;();<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        vDialogueNain.add("Bonjour aventurrrrrier !, qu'est ce qui vous amenes ici ?");<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        vDialogueNain.add("Salopperrrrie de drrragon en bas !");<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        vDialogueNain.add("Mais où est mon orrr.");<a name="line.127"></a>
+<span class="sourceLineNo">128</span>        vDialogueNain.add("Beurrrrk encore un elfe.");<a name="line.128"></a>
+<span class="sourceLineNo">129</span>        <a name="line.129"></a>
+<span class="sourceLineNo">130</span>        ArrayList&lt;String&gt; vDialogueBahamut = new ArrayList&lt;String&gt;();<a name="line.130"></a>
+<span class="sourceLineNo">131</span>        vDialogueBahamut.add("Que faites vous ici ! sortez de mon antre !");<a name="line.131"></a>
+<span class="sourceLineNo">132</span>        vDialogueBahamut.add("Je vous détruire!");<a name="line.132"></a>
+<span class="sourceLineNo">133</span>        vDialogueBahamut.add("Meurs Insecte !");<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        vDialogueBahamut.add("Tuu ne fais pas le poids aventurier.");<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        <a name="line.135"></a>
+<span class="sourceLineNo">136</span>        ArrayList&lt;String&gt; vDialogueCadavre = new ArrayList&lt;String&gt;();<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        vDialogueCadavre.add("Le corps est inanimé, il ne peut vous répondre.");<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        vDialogueCadavre.add("9a ne sert à rien de s'obstiner, il est mort.");<a name="line.138"></a>
+<span class="sourceLineNo">139</span><a name="line.139"></a>
+<span class="sourceLineNo">140</span>        ArrayList&lt;String&gt; vDialogueFenrir = new ArrayList&lt;String&gt;();<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        vDialogueFenrir.add("Mortel, tu vas périr pour ton insolence !");<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        vDialogueFenrir.add("Raaaaaaaawrrrrrrr");<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        vDialogueFenrir.add("Huuum de la chair fraîche.");<a name="line.143"></a>
+<span class="sourceLineNo">144</span>        vDialogueFenrir.add("Pars avant que je ne te dévore.");<a name="line.144"></a>
+<span class="sourceLineNo">145</span>        <a name="line.145"></a>
+<span class="sourceLineNo">146</span>        //Chateau<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        Room vTrone = new Room("dans la salle du trône, où le messager du Roi veut vous parler.","Images/trone.jpg");<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        vTrone.addNPC(new NPC(vDialogueMsg,"Messager",vTrone));<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        Room vCour = new Room("dans la cour du Château.","Images/cour.jpg");<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        Room vChambre = new Room("dans la chambre du Roi, il est dans son lit, mourrant","Images/roi.jpg");<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        vChambre.addNPC(new NPC(vDialogueRoi,"Roi",vChambre));<a name="line.151"></a>
+<span class="sourceLineNo">152</span>        <a name="line.152"></a>
+<span class="sourceLineNo">153</span>        //Montagne<a name="line.153"></a>
+<span class="sourceLineNo">154</span><a name="line.154"></a>
+<span class="sourceLineNo">155</span>        Room vEntreeH = new Room("face à l'entrée de l'antre du Bahamut","Images/EntreeH.jpg"); <a name="line.155"></a>
+<span class="sourceLineNo">156</span>        vEntreeH.addNPC(new NPC(vDialogueNain, "Gimli",vEntreeH));<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        vEntreeH.addItem(new Item("lemba", "un lemba, pain magiue elfique", 1, true));<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        vEntreeH.addItem(new Beamer());<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        Room vSommetEst = new Room("sur le flanc est de la montagne.","Images/Montagne.jpg");<a name="line.159"></a>
+<span class="sourceLineNo">160</span>        vSommetEst.addItem(new Item("torche","une torche pour vous éclairer dans ce donjon",1, false));<a name="line.160"></a>
+<span class="sourceLineNo">161</span><a name="line.161"></a>
+<span class="sourceLineNo">162</span>        //Etage 1<a name="line.162"></a>
+<span class="sourceLineNo">163</span><a name="line.163"></a>
+<span class="sourceLineNo">164</span>        Room vEntreeB = new Room("dans l'entrée de l'antre, l'escalier pour sortir s'est refermé, vous ne pouvez plus partir désormais.","Images/EntreeB.jpg");<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        Room vRagnarok = new Room("dans la salle ou se trouve Ragnarok, la lance légendaire","Images/Ragnarok.jpg");<a name="line.165"></a>
+<span class="sourceLineNo">166</span>        vRagnarok.addItem(new Arme("ragnarok","Ragnarok, lance légendaire",5,20));<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        vRagnarok.addItem(new Item("casque","Le casque ayant appartenu au derneir gardien de ces lieux", 1, false));<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        Room vEscalierH = new Room("en haut de l'escalier principal de l'antre","Images/Mine.jpg");<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        //TransporterRoom ici<a name="line.169"></a>
+<span class="sourceLineNo">170</span>        <a name="line.170"></a>
+<span class="sourceLineNo">171</span>        //Etage 2<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        <a name="line.172"></a>
+<span class="sourceLineNo">173</span>        Room vEscalierPrincipalBas= new Room("en bas de l'escalier princpial de l'antre.","Images/escalierpb.jpg");;<a name="line.173"></a>
+<span class="sourceLineNo">174</span>        Room vVide = new Room("dans une salle vide sans intérêt","Images/vide.jpg");<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        Room vAventurier = new Room("dans une salle où gît un cadavre","Images/aventurier.jpg");<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        vAventurier.addNPC(new NPC(vDialogueCadavre,"aventurier",vAventurier));<a name="line.176"></a>
+<span class="sourceLineNo">177</span>        Room vForge = new Room("dans une ancienne forge naine","Images/forge.jpg");<a name="line.177"></a>
+<span class="sourceLineNo">178</span>        vForge.addItem(new Armor("cotte", " une cotte de maille en mithril", 5, 40));<a name="line.178"></a>
+<span class="sourceLineNo">179</span>        Room vEscalier2H = new Room("en haut de l'escalier menant au Bahamut","Images/escalier2h.jpg");      <a name="line.179"></a>
+<span class="sourceLineNo">180</span>        Room vFenrir = new Room("dans la pièce ou vous apercevez un loup au fond","Images/fenrir.jpg");<a name="line.180"></a>
+<span class="sourceLineNo">181</span>        NPC vFenrirNPC = new NPC(vDialogueFenrir, "Fenrir",50,10,10,true,new Arme("Excalibur", "Excalibur, la meilleur épée jamais forgée",20,666),vFenrir);<a name="line.181"></a>
+<span class="sourceLineNo">182</span>        vFenrir.addNPC(vFenrirNPC);<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        <a name="line.183"></a>
+<span class="sourceLineNo">184</span>        //Etage 3<a name="line.184"></a>
+<span class="sourceLineNo">185</span>        <a name="line.185"></a>
+<span class="sourceLineNo">186</span>        Room vEscalier2B = new Room("en bas de l'escalier menant au bahamut","Images/Escalier.jpg");<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        Room vBahamut1 = new Room("dans la salle centrale de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        Room vBahamutG = new Room("dans la salle gauche de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.188"></a>
+<span class="sourceLineNo">189</span>        Room vBahamutHG = new Room("dans la salle en haut à gauche de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.189"></a>
+<span class="sourceLineNo">190</span>        Room vBahamutHD = new Room("dans la salle en haut à droite de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        Room vBahamutD = new Room("dans la salle droite de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.191"></a>
+<span class="sourceLineNo">192</span>        Room vBahamutN = new Room("dans la salle au nord de la chambre du Bahamut, vous apercevez ses yeux dans l'obscurité","Images/Chambre.png");<a name="line.192"></a>
+<span class="sourceLineNo">193</span><a name="line.193"></a>
+<span class="sourceLineNo">194</span>        //Sorties<a name="line.194"></a>
+<span class="sourceLineNo">195</span>        vTrone.setExit("est",vCour);<a name="line.195"></a>
+<span class="sourceLineNo">196</span>        vCour.setExit("ouest",vTrone);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        vCour.setExit("sud",vSommetEst);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        vCour.setExit("est",vChambre);<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        vChambre.setExit("ouest",vCour);<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        <a name="line.200"></a>
+<span class="sourceLineNo">201</span>        vSommetEst.setExit("nord",vCour);<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        vSommetEst.setExit("ouest", vEntreeH);<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        vEntreeH.setExit("est", vSommetEst);<a name="line.203"></a>
+<span class="sourceLineNo">204</span>        vEntreeH.setExit("bas", vEntreeB);<a name="line.204"></a>
+<span class="sourceLineNo">205</span><a name="line.205"></a>
+<span class="sourceLineNo">206</span>        //Enlever la sortie vers le haut pour trapdoor<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        //vEntreeB.setExit("haut", vEntreeH);<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        vEntreeB.setExit("ouest",vRagnarok);<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        vEntreeB.setExit("sud",vEscalierH);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        vRagnarok.setExit("est", vEntreeB);<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        vEscalierH.setExit("bas", vEscalierPrincipalBas);<a name="line.211"></a>
+<span class="sourceLineNo">212</span>        vEscalierH.setExit("nord", vEntreeB);<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        <a name="line.213"></a>
+<span class="sourceLineNo">214</span>        vEscalierPrincipalBas.setExit("haut",vEscalierH);<a name="line.214"></a>
+<span class="sourceLineNo">215</span>        vEscalierPrincipalBas.setExit("sud",vVide);<a name="line.215"></a>
+<span class="sourceLineNo">216</span>        vVide.setExit("nord",vEscalierPrincipalBas);<a name="line.216"></a>
+<span class="sourceLineNo">217</span>        vVide.setExit("sud",vEscalier2H);<a name="line.217"></a>
+<span class="sourceLineNo">218</span>        vVide.setExit("est",vForge);<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        vVide.setExit("ouest",vAventurier);<a name="line.219"></a>
+<span class="sourceLineNo">220</span>        vForge.setExit("ouest",vVide);<a name="line.220"></a>
+<span class="sourceLineNo">221</span>        vAventurier.setExit("est",vVide);<a name="line.221"></a>
+<span class="sourceLineNo">222</span>        vEscalier2H.setExit("nord",vVide);<a name="line.222"></a>
+<span class="sourceLineNo">223</span>        vEscalier2H.setExit("est",vFenrir);<a name="line.223"></a>
+<span class="sourceLineNo">224</span>        vEscalier2H.setExit("bas",vEscalier2B);<a name="line.224"></a>
+<span class="sourceLineNo">225</span>        vFenrir.setExit("ouest",vEscalier2H);<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        <a name="line.226"></a>
+<span class="sourceLineNo">227</span>        vEscalier2B.setExit("haut", vEscalier2H);<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        vEscalier2B.setExit("nord", vBahamut1);<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        vBahamut1.setExit("sud", vEscalier2B);<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        vBahamut1.setExit("nord", vBahamutN);<a name="line.230"></a>
+<span class="sourceLineNo">231</span>        vBahamut1.setExit("est", vBahamutD);<a name="line.231"></a>
+<span class="sourceLineNo">232</span>        vBahamut1.setExit("ouest", vBahamutG);<a name="line.232"></a>
+<span class="sourceLineNo">233</span><a name="line.233"></a>
+<span class="sourceLineNo">234</span>        vBahamutG.setExit("est", vBahamut1);<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        vBahamutG.setExit("nord",vBahamutHG);<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        vBahamutD.setExit("ouest", vBahamut1);<a name="line.236"></a>
+<span class="sourceLineNo">237</span>        vBahamutD.setExit("nord",vBahamutHD);<a name="line.237"></a>
+<span class="sourceLineNo">238</span>        vBahamutN.setExit("sud", vBahamut1);<a name="line.238"></a>
+<span class="sourceLineNo">239</span>        vBahamutN.setExit("est", vBahamutHD);<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        vBahamutN.setExit("ouest", vBahamutHG);<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        <a name="line.241"></a>
+<span class="sourceLineNo">242</span>        <a name="line.242"></a>
+<span class="sourceLineNo">243</span>        //TransporterRoom<a name="line.243"></a>
+<span class="sourceLineNo">244</span>        Room vTransporter = new TransporterRoom("dans une salle où se trouve seulement un téléporteur, même pas de porte !","Images/Transporter.jpg",this.aRoomList);<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        vEscalierH.setExit("est",vTransporter);<a name="line.245"></a>
+<span class="sourceLineNo">246</span>        <a name="line.246"></a>
+<span class="sourceLineNo">247</span>        <a name="line.247"></a>
+<span class="sourceLineNo">248</span>        //add Rooms to list<a name="line.248"></a>
+<span class="sourceLineNo">249</span>        aRoomList.add(vTrone);<a name="line.249"></a>
+<span class="sourceLineNo">250</span>        aRoomList.add(vCour);<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        aRoomList.add(vChambre);<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        aRoomList.add(vSommetEst);<a name="line.252"></a>
+<span class="sourceLineNo">253</span>        aRoomList.add(vEntreeH);<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        aRoomList.add(vEntreeB);<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        aRoomList.add(vRagnarok);<a name="line.255"></a>
+<span class="sourceLineNo">256</span>        aRoomList.add(vEscalierH);<a name="line.256"></a>
+<span class="sourceLineNo">257</span>        aRoomList.add(vTransporter);<a name="line.257"></a>
+<span class="sourceLineNo">258</span>        aRoomList.add(vEscalierPrincipalBas);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>        aRoomList.add(vVide);<a name="line.259"></a>
+<span class="sourceLineNo">260</span>        aRoomList.add(vAventurier);<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        aRoomList.add(vForge);<a name="line.261"></a>
+<span class="sourceLineNo">262</span>        aRoomList.add(vEscalier2H);<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        aRoomList.add(vFenrir);<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        aRoomList.add(vEscalier2B);<a name="line.264"></a>
+<span class="sourceLineNo">265</span>        aRoomList.add(vBahamut1);<a name="line.265"></a>
+<span class="sourceLineNo">266</span>        aRoomList.add(vBahamutD);<a name="line.266"></a>
+<span class="sourceLineNo">267</span>        aRoomList.add(vBahamutG);<a name="line.267"></a>
+<span class="sourceLineNo">268</span>        aRoomList.add(vBahamutHG);<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        aRoomList.add(vBahamutN);<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        aRoomList.add(vBahamutHD);<a name="line.270"></a>
+<span class="sourceLineNo">271</span><a name="line.271"></a>
+<span class="sourceLineNo">272</span>        //Create RoomList for the boss<a name="line.272"></a>
+<span class="sourceLineNo">273</span>        ArrayList&lt;Room&gt; vBossRooms = new ArrayList&lt;Room&gt;();<a name="line.273"></a>
+<span class="sourceLineNo">274</span>        vBossRooms.add(vBahamut1 );<a name="line.274"></a>
+<span class="sourceLineNo">275</span>        vBossRooms.add(vBahamutG );<a name="line.275"></a>
+<span class="sourceLineNo">276</span>        vBossRooms.add(vBahamutD );<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        vBossRooms.add(vBahamutN );<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        vBossRooms.add(vBahamutHG );<a name="line.278"></a>
+<span class="sourceLineNo">279</span>        vBossRooms.add(vBahamutHD );<a name="line.279"></a>
+<span class="sourceLineNo">280</span><a name="line.280"></a>
+<span class="sourceLineNo">281</span>        this.aBahamut = new MovingNPC(vDialogueBahamut, "Bahamut",50,10,10,true,new Item("fiole", "une fiole de sang du bahamut",1,false),vBahamut1,vBossRooms);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        vBahamut1.addNPC(this.aBahamut);<a name="line.282"></a>
+<span class="sourceLineNo">283</span><a name="line.283"></a>
+<span class="sourceLineNo">284</span><a name="line.284"></a>
+<span class="sourceLineNo">285</span><a name="line.285"></a>
+<span class="sourceLineNo">286</span>    }//createrooms<a name="line.286"></a>
+<span class="sourceLineNo">287</span>    /**<a name="line.287"></a>
+<span class="sourceLineNo">288</span>     * Permet de reafficher la description du lieu actuel<a name="line.288"></a>
+<span class="sourceLineNo">289</span>     */<a name="line.289"></a>
+<span class="sourceLineNo">290</span>    public void look()<a name="line.290"></a>
+<span class="sourceLineNo">291</span>    {<a name="line.291"></a>
+<span class="sourceLineNo">292</span>        this.printLocation();        <a name="line.292"></a>
+<span class="sourceLineNo">293</span>    }//look<a name="line.293"></a>
+<span class="sourceLineNo">294</span><a name="line.294"></a>
+<span class="sourceLineNo">295</span>    /**<a name="line.295"></a>
+<span class="sourceLineNo">296</span>     * Permet de changer le mode de Test<a name="line.296"></a>
+<span class="sourceLineNo">297</span>     * @param pB état futur du mode de test<a name="line.297"></a>
+<span class="sourceLineNo">298</span>     * <a name="line.298"></a>
+<span class="sourceLineNo">299</span>     */<a name="line.299"></a>
+<span class="sourceLineNo">300</span>    public void setTestMode(final boolean pB)<a name="line.300"></a>
+<span class="sourceLineNo">301</span>    {<a name="line.301"></a>
+<span class="sourceLineNo">302</span>        this.aTestMode = pB;<a name="line.302"></a>
+<span class="sourceLineNo">303</span>    }<a name="line.303"></a>
+<span class="sourceLineNo">304</span><a name="line.304"></a>
+<span class="sourceLineNo">305</span>    /**<a name="line.305"></a>
+<span class="sourceLineNo">306</span>     * Permet de récupérer le mode de Test<a name="line.306"></a>
+<span class="sourceLineNo">307</span>     * @return mode de test<a name="line.307"></a>
+<span class="sourceLineNo">308</span>     * <a name="line.308"></a>
+<span class="sourceLineNo">309</span>     */<a name="line.309"></a>
+<span class="sourceLineNo">310</span>    public boolean getTestMode()<a name="line.310"></a>
+<span class="sourceLineNo">311</span>    {<a name="line.311"></a>
+<span class="sourceLineNo">312</span>        return this.aTestMode;<a name="line.312"></a>
+<span class="sourceLineNo">313</span>    }<a name="line.313"></a>
+<span class="sourceLineNo">314</span><a name="line.314"></a>
+<span class="sourceLineNo">315</span>    /**<a name="line.315"></a>
+<span class="sourceLineNo">316</span>     * retourne le parser<a name="line.316"></a>
+<span class="sourceLineNo">317</span>     * @return le parser<a name="line.317"></a>
+<span class="sourceLineNo">318</span>     */<a name="line.318"></a>
+<span class="sourceLineNo">319</span>    public Parser getParser()<a name="line.319"></a>
+<span class="sourceLineNo">320</span>    {<a name="line.320"></a>
+<span class="sourceLineNo">321</span>        return this.aParser;        <a name="line.321"></a>
+<span class="sourceLineNo">322</span>    }<a name="line.322"></a>
+<span class="sourceLineNo">323</span><a name="line.323"></a>
+<span class="sourceLineNo">324</span>    /**<a name="line.324"></a>
+<span class="sourceLineNo">325</span>     * Permet de se suicider<a name="line.325"></a>
+<span class="sourceLineNo">326</span>     */<a name="line.326"></a>
+<span class="sourceLineNo">327</span>    private void harakiri()<a name="line.327"></a>
+<span class="sourceLineNo">328</span>    {<a name="line.328"></a>
+<span class="sourceLineNo">329</span>        aGui.println("En ayant marre de votre aventure,\nvous décidez de mourrir honorablement et de réaliser un HARAKIRI");<a name="line.329"></a>
+<span class="sourceLineNo">330</span>        this.mort();<a name="line.330"></a>
+<span class="sourceLineNo">331</span>    }//harakiri<a name="line.331"></a>
+<span class="sourceLineNo">332</span><a name="line.332"></a>
+<span class="sourceLineNo">333</span>    /**<a name="line.333"></a>
+<span class="sourceLineNo">334</span>     * retourne la pile de rooms<a name="line.334"></a>
+<span class="sourceLineNo">335</span>     * @return pile de rooms<a name="line.335"></a>
+<span class="sourceLineNo">336</span>     * <a name="line.336"></a>
+<span class="sourceLineNo">337</span>     */<a name="line.337"></a>
+<span class="sourceLineNo">338</span>    public Stack&lt;Room&gt; getRoomStack()<a name="line.338"></a>
+<span class="sourceLineNo">339</span>    {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>        return this.aRoomStack;<a name="line.340"></a>
+<span class="sourceLineNo">341</span>    }<a name="line.341"></a>
+<span class="sourceLineNo">342</span><a name="line.342"></a>
+<span class="sourceLineNo">343</span>    /**<a name="line.343"></a>
+<span class="sourceLineNo">344</span>     * REtourne la liste de room<a name="line.344"></a>
+<span class="sourceLineNo">345</span>     * @return Liste de rooms<a name="line.345"></a>
+<span class="sourceLineNo">346</span>     */<a name="line.346"></a>
+<span class="sourceLineNo">347</span>    public ArrayList&lt;Room&gt; getRoomList()<a name="line.347"></a>
+<span class="sourceLineNo">348</span>    {<a name="line.348"></a>
+<span class="sourceLineNo">349</span>        return this.aRoomList;<a name="line.349"></a>
+<span class="sourceLineNo">350</span>    }<a name="line.350"></a>
+<span class="sourceLineNo">351</span><a name="line.351"></a>
+<span class="sourceLineNo">352</span>    /**<a name="line.352"></a>
+<span class="sourceLineNo">353</span>     * Given a command, process (that is: execute) the command.<a name="line.353"></a>
+<span class="sourceLineNo">354</span>     * If this command ends the game, true is returned, otherwise false is<a name="line.354"></a>
+<span class="sourceLineNo">355</span>     * returned.<a name="line.355"></a>
+<span class="sourceLineNo">356</span>     * @param pCommand commande à interpréter<a name="line.356"></a>
+<span class="sourceLineNo">357</span>     */<a name="line.357"></a>
+<span class="sourceLineNo">358</span>    public void interpretCommand(final Command pCommand) <a name="line.358"></a>
+<span class="sourceLineNo">359</span>    {<a name="line.359"></a>
+<span class="sourceLineNo">360</span>        /*CommandWord vCommandWord = pCommand.getCommandWord();*/<a name="line.360"></a>
+<span class="sourceLineNo">361</span>        if(pCommand == null)<a name="line.361"></a>
+<span class="sourceLineNo">362</span>        {<a name="line.362"></a>
+<span class="sourceLineNo">363</span>            this.aGui.println("Je ne comprends pas :/");<a name="line.363"></a>
+<span class="sourceLineNo">364</span>        }else{<a name="line.364"></a>
+<span class="sourceLineNo">365</span>            pCommand.execute(this);        <a name="line.365"></a>
+<span class="sourceLineNo">366</span>        }<a name="line.366"></a>
+<span class="sourceLineNo">367</span>    }//interpretCommand<a name="line.367"></a>
+<span class="sourceLineNo">368</span><a name="line.368"></a>
+<span class="sourceLineNo">369</span>    // implementations of user commands:<a name="line.369"></a>
+<span class="sourceLineNo">370</span><a name="line.370"></a>
+<span class="sourceLineNo">371</span>    /**<a name="line.371"></a>
+<span class="sourceLineNo">372</span>     * Print out some help information.<a name="line.372"></a>
+<span class="sourceLineNo">373</span>     * Here we print some stupid, cryptic message and a list of the <a name="line.373"></a>
+<span class="sourceLineNo">374</span>     * command words.<a name="line.374"></a>
+<span class="sourceLineNo">375</span>     */<a name="line.375"></a>
+<span class="sourceLineNo">376</span>    private void printHelp() <a name="line.376"></a>
+<span class="sourceLineNo">377</span>    {<a name="line.377"></a>
+<span class="sourceLineNo">378</span>        aGui.println("Vous êtes seul et perdu. \nVous vous trouvez dans la montagne sacrée du Bahamut.\n");<a name="line.378"></a>
+<span class="sourceLineNo">379</span>        aGui.println("Vos commandes sont: ");<a name="line.379"></a>
+<span class="sourceLineNo">380</span>        aGui.println(aParser.showCommands());<a name="line.380"></a>
+<span class="sourceLineNo">381</span>    }//printHelp<a name="line.381"></a>
+<span class="sourceLineNo">382</span><a name="line.382"></a>
+<span class="sourceLineNo">383</span>    /**<a name="line.383"></a>
+<span class="sourceLineNo">384</span>     * Vide la pile de Rooms<a name="line.384"></a>
+<span class="sourceLineNo">385</span>     * <a name="line.385"></a>
+<span class="sourceLineNo">386</span>     */<a name="line.386"></a>
+<span class="sourceLineNo">387</span>    public void clearStack()<a name="line.387"></a>
+<span class="sourceLineNo">388</span>    {<a name="line.388"></a>
+<span class="sourceLineNo">389</span>        while(!this.aRoomStack.isEmpty())     <a name="line.389"></a>
+<span class="sourceLineNo">390</span>        {<a name="line.390"></a>
+<span class="sourceLineNo">391</span>            this.aRoomStack.pop();<a name="line.391"></a>
+<span class="sourceLineNo">392</span>        }<a name="line.392"></a>
+<span class="sourceLineNo">393</span><a name="line.393"></a>
+<span class="sourceLineNo">394</span>    }<a name="line.394"></a>
+<span class="sourceLineNo">395</span><a name="line.395"></a>
+<span class="sourceLineNo">396</span>    /**<a name="line.396"></a>
+<span class="sourceLineNo">397</span>     * Permet d'incrémenter le compteur de et de vérifier si i lfaut arrêter la jeu à un déplacement<a name="line.397"></a>
+<span class="sourceLineNo">398</span>     * @param pR pièce actuelle avant le déplacement<a name="line.398"></a>
+<span class="sourceLineNo">399</span>     * <a name="line.399"></a>
+<span class="sourceLineNo">400</span>     */<a name="line.400"></a>
+<span class="sourceLineNo">401</span><a name="line.401"></a>
+<span class="sourceLineNo">402</span>    public void oneMove(final Room pR)<a name="line.402"></a>
+<span class="sourceLineNo">403</span>    {<a name="line.403"></a>
+<span class="sourceLineNo">404</span>        if(this.aNbMoves + 1 &gt;= this.MAX_MOVES)<a name="line.404"></a>
+<span class="sourceLineNo">405</span>        {<a name="line.405"></a>
+<span class="sourceLineNo">406</span>            this.mort();<a name="line.406"></a>
+<span class="sourceLineNo">407</span>            return;           <a name="line.407"></a>
+<span class="sourceLineNo">408</span>        }<a name="line.408"></a>
+<span class="sourceLineNo">409</span>        this.aRoomStack.push(pR);<a name="line.409"></a>
+<span class="sourceLineNo">410</span>        this.aBahamut.move();<a name="line.410"></a>
+<span class="sourceLineNo">411</span>        this.aNbMoves ++ ; <a name="line.411"></a>
+<span class="sourceLineNo">412</span>    }<a name="line.412"></a>
+<span class="sourceLineNo">413</span><a name="line.413"></a>
+<span class="sourceLineNo">414</span>    /**<a name="line.414"></a>
+<span class="sourceLineNo">415</span>     * Nous fait revenir à la salle précédente<a name="line.415"></a>
+<span class="sourceLineNo">416</span>     */<a name="line.416"></a>
+<span class="sourceLineNo">417</span>    private void back()<a name="line.417"></a>
+<span class="sourceLineNo">418</span>    {<a name="line.418"></a>
+<span class="sourceLineNo">419</span>        this.aPlayer.changeRoom(this.aRoomStack.pop());<a name="line.419"></a>
+<span class="sourceLineNo">420</span>        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());<a name="line.420"></a>
+<span class="sourceLineNo">421</span>        if(this.aPlayer.getCurrentRoom().getImageName() != null)<a name="line.421"></a>
+<span class="sourceLineNo">422</span>            this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName()); <a name="line.422"></a>
+<span class="sourceLineNo">423</span>    }<a name="line.423"></a>
+<span class="sourceLineNo">424</span><a name="line.424"></a>
+<span class="sourceLineNo">425</span>    /**<a name="line.425"></a>
+<span class="sourceLineNo">426</span>     * <a name="line.426"></a>
+<span class="sourceLineNo">427</span>     * Methode à appeler en cas de mort<a name="line.427"></a>
+<span class="sourceLineNo">428</span>     */<a name="line.428"></a>
+<span class="sourceLineNo">429</span>    private void mort()<a name="line.429"></a>
+<span class="sourceLineNo">430</span>    {<a name="line.430"></a>
+<span class="sourceLineNo">431</span>        aGui.showImage("Images/Mort.jpg");<a name="line.431"></a>
+<span class="sourceLineNo">432</span>        aGui.enable(false);<a name="line.432"></a>
+<span class="sourceLineNo">433</span><a name="line.433"></a>
+<span class="sourceLineNo">434</span>    }//mort<a name="line.434"></a>
+<span class="sourceLineNo">435</span><a name="line.435"></a>
+<span class="sourceLineNo">436</span>    /**<a name="line.436"></a>
+<span class="sourceLineNo">437</span>     * MEthode de fin de jeu<a name="line.437"></a>
+<span class="sourceLineNo">438</span>     */<a name="line.438"></a>
+<span class="sourceLineNo">439</span>    private void endGame()<a name="line.439"></a>
+<span class="sourceLineNo">440</span>    {<a name="line.440"></a>
+<span class="sourceLineNo">441</span>        aGui.println("Merci d'avoir joué !");<a name="line.441"></a>
+<span class="sourceLineNo">442</span>        aGui.enable(false);<a name="line.442"></a>
+<span class="sourceLineNo">443</span>    }//endgame  <a name="line.443"></a>
+<span class="sourceLineNo">444</span><a name="line.444"></a>
+<span class="sourceLineNo">445</span>    /**<a name="line.445"></a>
+<span class="sourceLineNo">446</span>     * Methode pour récupérer le bahamut<a name="line.446"></a>
+<span class="sourceLineNo">447</span>     * @return Bahamut<a name="line.447"></a>
+<span class="sourceLineNo">448</span>     */<a name="line.448"></a>
+<span class="sourceLineNo">449</span>    public MovingNPC getBahamut()<a name="line.449"></a>
+<span class="sourceLineNo">450</span>    {<a name="line.450"></a>
+<span class="sourceLineNo">451</span>        return this.aBahamut;      <a name="line.451"></a>
+<span class="sourceLineNo">452</span>    }<a name="line.452"></a>
+<span class="sourceLineNo">453</span><a name="line.453"></a>
+<span class="sourceLineNo">454</span>    /**<a name="line.454"></a>
+<span class="sourceLineNo">455</span>     * Permet de savoir si le bahamut est dans la pièce du joueur<a name="line.455"></a>
+<span class="sourceLineNo">456</span>     * Si il y est, on affiche son image<a name="line.456"></a>
+<span class="sourceLineNo">457</span>     */<a name="line.457"></a>
+<span class="sourceLineNo">458</span>    public void isBahamutIn()<a name="line.458"></a>
+<span class="sourceLineNo">459</span>    {<a name="line.459"></a>
+<span class="sourceLineNo">460</span>        if(!(this.aPlayer.getCurrentRoom().getNPCList().get(this.aBahamut.getName()) == null))<a name="line.460"></a>
+<span class="sourceLineNo">461</span>        {<a name="line.461"></a>
+<span class="sourceLineNo">462</span>            this.aGui.showImage("Images/Bahamut.jpg");<a name="line.462"></a>
+<span class="sourceLineNo">463</span>        }<a name="line.463"></a>
+<span class="sourceLineNo">464</span>    }<a name="line.464"></a>
+<span class="sourceLineNo">465</span>}<a name="line.465"></a>
+<span class="sourceLineNo">466</span><a name="line.466"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
